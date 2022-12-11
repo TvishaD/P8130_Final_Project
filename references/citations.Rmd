@@ -12,3 +12,9 @@ Guerra, R.S., Amaral, T.F., Marques, E. et al. Accuracy of Siri and Brozek equat
 * Children Siri:
 
 Kryst, Ł., Żegleń, M., Kowal, M., & Woronkowicz, A. (2021). Body fat percentage estimation in children - searching for the most accurate equation. Homo : internationale Zeitschrift fur die vergleichende Forschung am Menschen, 72(3), 205–213. https://doi.org/10.1127/homo/2021/1345
+
+* Siri adaptations needed so brozek good: 
+
+https://europepmc.org/article/med/2598895
+
+Deurenberg P, Weststrate JA, van der Kooy K. Is an adaptation of Siri's formula for the calculation of body fat percentage from body density in the elderly necessary? European Journal of Clinical Nutrition. 1989 Aug;43(8):559-567. PMID: 2598895. 
