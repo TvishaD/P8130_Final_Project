@@ -1,0 +1,11 @@
+---
+title: "Code and Analysis"
+date: "2022-12-11"
+output: github_document
+---
+
+```{r}
+library(tidyverse)
+library(ggplot2)
+```
+
