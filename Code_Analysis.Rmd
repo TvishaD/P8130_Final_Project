@@ -67,3 +67,42 @@ bodyfat_df %>%
   ggpairs()
 ```
 
+```{r inv_transformation for weight}
+before = 
+bodyfat_df %>%
+  ggplot(aes(x = weight)) +
+  geom_density()
+
+after = 
+bodyfat_df %>% 
+  mutate(inv_weight = 1/(weight)) %>% 
+  ggplot(aes(x = inv_weight)) +
+  geom_density()
+
+before + after
+```
+
+NOTE: For the almost normal but right skewed distributions, inverse transformation is making a considerable difference. From this point, inversely transforming (weight and neck --- bicep). 
+
+```{r inverse transforms}
+bodyfat_df = 
+  bodyfat_df %>%
+  mutate(i_weight = 1/weight,
+         i_neck = 1/neck,
+         i_chest = 1/chest,
+         i_abdomen = 1/abdomen,
+         i_hip = 1/hip,
+         i_thigh = 1/thigh,
+         i_knee = 1/knee,
+         i_ankle = 1/ankle,
+         i_bicep = 1/bicep) %>% 
+  select(-id, -bodyfat_siri, -body_density, -weight, -neck, -chest, -abdomen,
+         -hip, -thigh, -knee, -ankle, -bicep)
+
+```
+
+
+NOTE: Collinearity continues though. Weight with all others. Just fyi. Not manually removing any covariates as they would be removed during the model selection processes?
+
+
+

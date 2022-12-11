@@ -85,12 +85,12 @@ bodyfat_df %>%
   gtsummary::bold_labels()
 ```
 
-<div id="djbvqzcxjt" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="dkhanoeock" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
 
-#djbvqzcxjt .gt_table {
+#dkhanoeock .gt_table {
   display: table;
   border-collapse: collapse;
   margin-left: auto;
@@ -115,7 +115,7 @@ bodyfat_df %>%
   border-left-color: #D3D3D3;
 }
 
-#djbvqzcxjt .gt_heading {
+#dkhanoeock .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -127,7 +127,7 @@ bodyfat_df %>%
   border-right-color: #D3D3D3;
 }
 
-#djbvqzcxjt .gt_title {
+#dkhanoeock .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -139,7 +139,7 @@ bodyfat_df %>%
   border-bottom-width: 0;
 }
 
-#djbvqzcxjt .gt_subtitle {
+#dkhanoeock .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -151,13 +151,13 @@ bodyfat_df %>%
   border-top-width: 0;
 }
 
-#djbvqzcxjt .gt_bottom_border {
+#dkhanoeock .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#djbvqzcxjt .gt_col_headings {
+#dkhanoeock .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -172,7 +172,7 @@ bodyfat_df %>%
   border-right-color: #D3D3D3;
 }
 
-#djbvqzcxjt .gt_col_heading {
+#dkhanoeock .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -192,7 +192,7 @@ bodyfat_df %>%
   overflow-x: hidden;
 }
 
-#djbvqzcxjt .gt_column_spanner_outer {
+#dkhanoeock .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -204,15 +204,15 @@ bodyfat_df %>%
   padding-right: 4px;
 }
 
-#djbvqzcxjt .gt_column_spanner_outer:first-child {
+#dkhanoeock .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#djbvqzcxjt .gt_column_spanner_outer:last-child {
+#dkhanoeock .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#djbvqzcxjt .gt_column_spanner {
+#dkhanoeock .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -224,7 +224,7 @@ bodyfat_df %>%
   width: 100%;
 }
 
-#djbvqzcxjt .gt_group_heading {
+#dkhanoeock .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -249,7 +249,7 @@ bodyfat_df %>%
   vertical-align: middle;
 }
 
-#djbvqzcxjt .gt_empty_group_heading {
+#dkhanoeock .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -264,15 +264,15 @@ bodyfat_df %>%
   vertical-align: middle;
 }
 
-#djbvqzcxjt .gt_from_md > :first-child {
+#dkhanoeock .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#djbvqzcxjt .gt_from_md > :last-child {
+#dkhanoeock .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#djbvqzcxjt .gt_row {
+#dkhanoeock .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -291,7 +291,7 @@ bodyfat_df %>%
   overflow-x: hidden;
 }
 
-#djbvqzcxjt .gt_stub {
+#dkhanoeock .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -304,7 +304,7 @@ bodyfat_df %>%
   padding-right: 5px;
 }
 
-#djbvqzcxjt .gt_stub_row_group {
+#dkhanoeock .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -318,11 +318,11 @@ bodyfat_df %>%
   vertical-align: top;
 }
 
-#djbvqzcxjt .gt_row_group_first td {
+#dkhanoeock .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#djbvqzcxjt .gt_summary_row {
+#dkhanoeock .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -332,16 +332,16 @@ bodyfat_df %>%
   padding-right: 5px;
 }
 
-#djbvqzcxjt .gt_first_summary_row {
+#dkhanoeock .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#djbvqzcxjt .gt_first_summary_row.thick {
+#dkhanoeock .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#djbvqzcxjt .gt_last_summary_row {
+#dkhanoeock .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -351,7 +351,7 @@ bodyfat_df %>%
   border-bottom-color: #D3D3D3;
 }
 
-#djbvqzcxjt .gt_grand_summary_row {
+#dkhanoeock .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -361,7 +361,7 @@ bodyfat_df %>%
   padding-right: 5px;
 }
 
-#djbvqzcxjt .gt_first_grand_summary_row {
+#dkhanoeock .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -371,11 +371,11 @@ bodyfat_df %>%
   border-top-color: #D3D3D3;
 }
 
-#djbvqzcxjt .gt_striped {
+#dkhanoeock .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#djbvqzcxjt .gt_table_body {
+#dkhanoeock .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -384,7 +384,7 @@ bodyfat_df %>%
   border-bottom-color: #D3D3D3;
 }
 
-#djbvqzcxjt .gt_footnotes {
+#dkhanoeock .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -398,7 +398,7 @@ bodyfat_df %>%
   border-right-color: #D3D3D3;
 }
 
-#djbvqzcxjt .gt_footnote {
+#dkhanoeock .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-left: 4px;
@@ -407,7 +407,7 @@ bodyfat_df %>%
   padding-right: 5px;
 }
 
-#djbvqzcxjt .gt_sourcenotes {
+#dkhanoeock .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -421,7 +421,7 @@ bodyfat_df %>%
   border-right-color: #D3D3D3;
 }
 
-#djbvqzcxjt .gt_sourcenote {
+#dkhanoeock .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -429,64 +429,64 @@ bodyfat_df %>%
   padding-right: 5px;
 }
 
-#djbvqzcxjt .gt_left {
+#dkhanoeock .gt_left {
   text-align: left;
 }
 
-#djbvqzcxjt .gt_center {
+#dkhanoeock .gt_center {
   text-align: center;
 }
 
-#djbvqzcxjt .gt_right {
+#dkhanoeock .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#djbvqzcxjt .gt_font_normal {
+#dkhanoeock .gt_font_normal {
   font-weight: normal;
 }
 
-#djbvqzcxjt .gt_font_bold {
+#dkhanoeock .gt_font_bold {
   font-weight: bold;
 }
 
-#djbvqzcxjt .gt_font_italic {
+#dkhanoeock .gt_font_italic {
   font-style: italic;
 }
 
-#djbvqzcxjt .gt_super {
+#dkhanoeock .gt_super {
   font-size: 65%;
 }
 
-#djbvqzcxjt .gt_footnote_marks {
+#dkhanoeock .gt_footnote_marks {
   font-style: italic;
   font-weight: normal;
   font-size: 75%;
   vertical-align: 0.4em;
 }
 
-#djbvqzcxjt .gt_asterisk {
+#dkhanoeock .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#djbvqzcxjt .gt_indent_1 {
+#dkhanoeock .gt_indent_1 {
   text-indent: 5px;
 }
 
-#djbvqzcxjt .gt_indent_2 {
+#dkhanoeock .gt_indent_2 {
   text-indent: 10px;
 }
 
-#djbvqzcxjt .gt_indent_3 {
+#dkhanoeock .gt_indent_3 {
   text-indent: 15px;
 }
 
-#djbvqzcxjt .gt_indent_4 {
+#dkhanoeock .gt_indent_4 {
   text-indent: 20px;
 }
 
-#djbvqzcxjt .gt_indent_5 {
+#dkhanoeock .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -545,3 +545,44 @@ bodyfat_df %>%
 ```
 
 ![](Code_Analysis_files/figure-gfm/normality,%20y-x%20rels,%20collinearity%20in%20covariates%20(xs)-1.png)<!-- -->
+
+``` r
+before = 
+bodyfat_df %>%
+  ggplot(aes(x = weight)) +
+  geom_density()
+
+after = 
+bodyfat_df %>% 
+  mutate(inv_weight = 1/(weight)) %>% 
+  ggplot(aes(x = inv_weight)) +
+  geom_density()
+
+before + after
+```
+
+![](Code_Analysis_files/figure-gfm/inv_transformation%20for%20weight-1.png)<!-- -->
+
+NOTE: For the almost normal but right skewed distributions, inverse
+transformation is making a considerable difference. From this point,
+inversely transforming (weight and neck — bicep).
+
+``` r
+bodyfat_df = 
+  bodyfat_df %>%
+  mutate(i_weight = 1/weight,
+         i_neck = 1/neck,
+         i_chest = 1/chest,
+         i_abdomen = 1/abdomen,
+         i_hip = 1/hip,
+         i_thigh = 1/thigh,
+         i_knee = 1/knee,
+         i_ankle = 1/ankle,
+         i_bicep = 1/bicep) %>% 
+  select(-id, -bodyfat_siri, -body_density, -weight, -neck, -chest, -abdomen,
+         -hip, -thigh, -knee, -ankle, -bicep)
+```
+
+NOTE: Collinearity continues though. Weight with all others. Just fyi.
+Not manually removing any covariates as they would be removed during the
+model selection processes?
