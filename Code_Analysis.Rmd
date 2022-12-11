@@ -4,8 +4,16 @@ date: "2022-12-11"
 output: github_document
 ---
 
-```{r}
+```{r libraries set up, message = FALSE}
 library(tidyverse)
 library(ggplot2)
+```
+
+```{r dataset set up}
+bodyfat_df = 
+  readxl::read_excel("body_density_data.xlsx") %>%
+  janitor::clean_names() 
+
+head(bodyfat_df)
 ```
 
