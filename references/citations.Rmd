@@ -9,3 +9,6 @@ output: github_document
 
 Guerra, R.S., Amaral, T.F., Marques, E. et al. Accuracy of Siri and Brozek equations in the percent body fat estimation in older adults. J Nutr Health Aging 14, 744–748 (2010). https://doi.org/10.1007/s12603-010-0112-z
 
+* Children Siri:
+
+Kryst, Ł., Żegleń, M., Kowal, M., & Woronkowicz, A. (2021). Body fat percentage estimation in children - searching for the most accurate equation. Homo : internationale Zeitschrift fur die vergleichende Forschung am Menschen, 72(3), 205–213. https://doi.org/10.1127/homo/2021/1345
