@@ -7,6 +7,8 @@ output: github_document
 ```{r libraries set up, message = FALSE}
 library(tidyverse)
 library(ggplot2)
+library(patchwork)
+library(GGally)
 ```
 
 ```{r dataset set up}
@@ -15,5 +17,53 @@ bodyfat_df =
   janitor::clean_names() 
 
 head(bodyfat_df)
+```
+
+```{r Y distribution exploration}
+par(mfrow=c(1,3))
+
+boxplot(bodyfat_df$bodyfat_brozek, main='bodyfat_brozek')
+boxplot(bodyfat_df$bodyfat_siri, main='bodyfat_siri')
+boxplot(bodyfat_df$body_density, main='bodyfat_density')
+
+brozek = 
+bodyfat_df %>%
+  ggplot(aes(x = bodyfat_brozek)) +
+  geom_histogram()
+
+siri = 
+bodyfat_df %>%
+  ggplot(aes(x = bodyfat_siri)) +
+  geom_histogram()
+
+density =
+bodyfat_df %>%
+  ggplot(aes(x = body_density)) +
+  geom_histogram()
+
+brozek + siri + density
+```
+
+NOTE: All are approximately normal
+* Probably going with Brozek. (60-92)
+
+```{r checking validity in y choice}
+bodyfat_df %>%
+  ggplot(aes(x = age)) +
+  geom_histogram()
+```
+
+```{r descriptive stats of variables}
+bodyfat_df %>% 
+  select(-id, -bodyfat_siri, -body_density) %>% 
+  gtsummary::tbl_summary() %>% 
+  gtsummary::bold_labels()
+```
+
+```{r normality, y-x rels, collinearity in covariates (xs)}
+bodyfat_df %>% 
+  select(-bodyfat_siri, -body_density, -id) %>% 
+  relocate("bodyfat_brozek") %>% 
+  ggpairs()
 ```
 
