@@ -1,0 +1,302 @@
+---
+title: "Code_Analysis_Density"
+author: "Tvisha R. Devavarapu"
+date: "2022-12-12"
+output: github_document
+---
+
+```{r libraries set up, message = FALSE}
+library(tidyverse)
+library(ggplot2)
+library(patchwork)
+library(GGally)
+library(leaps)
+library(caret)
+```
+
+```{r dataset set up}
+bodyfat_df = 
+  readxl::read_excel("body_density_data.xlsx") %>%
+  janitor::clean_names() 
+
+head(bodyfat_df)
+```
+
+## Exploratory Analysis and Transformations
+
+```{r Y distribution exploration}
+par(mfrow=c(1,3))
+
+boxplot(bodyfat_df$bodyfat_brozek, main='bodyfat_brozek')
+boxplot(bodyfat_df$bodyfat_siri, main='bodyfat_siri')
+boxplot(bodyfat_df$body_density, main='bodyfat_density')
+
+brozek = 
+bodyfat_df %>%
+  ggplot(aes(x = bodyfat_brozek)) +
+  geom_histogram()
+
+siri = 
+bodyfat_df %>%
+  ggplot(aes(x = bodyfat_siri)) +
+  geom_histogram()
+
+density =
+bodyfat_df %>%
+  ggplot(aes(x = body_density)) +
+  geom_histogram()
+
+brozek + siri + density
+```
+
+NOTE: All are approximately normal
+DENSITY
+
+```{r checking validity in y choice}
+bodyfat_df %>%
+  ggplot(aes(x = age)) +
+  geom_histogram()
+```
+
+```{r descriptive stats of variables}
+bodyfat_df %>% 
+  select(-id, -bodyfat_siri, -bodyfat_brozeck) %>% 
+  gtsummary::tbl_summary() %>% 
+  gtsummary::bold_labels()
+```
+
+```{r normality, y-x rels, collinearity in covariates (xs)}
+bodyfat_df %>% 
+  select(-bodyfat_siri, -bodyfat_brozek, -id) %>% 
+  relocate("body_density") %>% 
+  ggpairs()
+```
+
+```{r inv_transformation for weight}
+before = 
+bodyfat_df %>%
+  ggplot(aes(x = weight)) +
+  geom_density()
+
+after = 
+bodyfat_df %>% 
+  mutate(inv_weight = 1/(weight)) %>% 
+  ggplot(aes(x = inv_weight)) +
+  geom_density()
+
+before + after
+```
+
+NOTE: For the almost normal but right skewed distributions, inverse transformation is making a considerable difference. From this point, inversely transforming (weight and neck --- bicep). 
+
+```{r inverse transforms}
+bodyfat_df = 
+  bodyfat_df %>%
+  mutate(i_weight = 1/weight,
+         i_neck = 1/neck,
+         i_chest = 1/chest,
+         i_abdomen = 1/abdomen,
+         i_hip = 1/hip,
+         i_thigh = 1/thigh,
+         i_knee = 1/knee,
+         i_ankle = 1/ankle,
+         i_bicep = 1/bicep) %>% 
+  select(-id, -bodyfat_siri, -bodyfat_brozek, -weight, -neck, -chest, -abdomen,
+         -hip, -thigh, -knee, -ankle, -bicep)
+
+```
+
+
+NOTE: Collinearity continues though. Weight with all others. Just fyi. Not manually removing any covariates as they would be removed during the model selection processes?
+
+## Model Selection
+
+```{r stepwise}
+mult.fit = lm(body_density ~ ., data = bodyfat_df)
+
+#Backward
+step(mult.fit, direction = 'backward')
+
+#Forward
+intercept_only = lm(body_density ~ 1, data = bodyfat_df)
+step(intercept_only, direction = "forward", scope = formula(mult.fit))
+
+#Stepwise
+step(mult.fit, direction = 'both')
+```
+
+Based on Backward: 8 predictors - age, height, wrist, i_neck, i_abdomen, i_chest, i_weight, i_bicep 
+Based on Forward: 6 predictors - age, height, i_bicep, wrist, i_neck, i_abdomen
+Based on Stepwise: 8 predictors - age, height, wrist, i_neck, i_abdomen, i_chest, i_weight, i_bicep
+
+```{r fitting models stepwise}
+six_pred = lm(body_density ~ age + height + i_bicep + wrist + i_neck + i_abdomen, data = bodyfat_df)
+summary(six_pred)
+
+eight_pred = lm(body_density ~ age + height + wrist + i_neck + i_abdomen + i_chest + i_weight + i_bicep, 
+                data = bodyfat_df)
+summary(eight_pred)
+
+anova(six_pred, eight_pred)
+```
+
+
+```{r automatic criterion cp}
+bodyfat_df =
+  bodyfat_df %>%
+  select(body_density, everything())
+
+mat = as.matrix(bodyfat_df)
+# Printing the 2 best models of each size, using the Cp criterion:
+leaps(x = mat[,2:14], y = mat[,1], nbest = 2, method = "Cp")
+```
+
+```{r automatic criterion adj r^2}
+# Printing the 2 best models of each size, using the adjusted Rˆ2 criterion:
+leaps(x = mat[,2:14], y = mat[,1], nbest = 2, method = "adjr2")
+```
+
+```{r automatic criterion output}
+b = regsubsets(body_density ~ ., data = bodyfat_df)
+rs = summary(b)
+
+par(mfrow = c(1,2))
+plot(1:8, rs$cp, xlab = "No of predictors", ylab = "Cp Statistic")
+abline(0,1)
+plot(1:8, rs$adjr2, xlab = "No of predictors", ylab = "Adj R2")
+
+rs
+```
+
+Based on Cp: 8 predictors (age height forearm wrist i_weight i_neck i_chest i_abdomen)
+
+Based on Adj R^2: 8 predictors (age height forearm wrist i_weight i_neck i_chest i_abdomen)
+
+NOTE: Some of these are highly correlated (DISCUSSION POINT!). Would use shrinkage method (LASSO) which would factor the matter of collinearity into the process). If we were to just abide by this though, we would have to use Vif values etc and drop the super highly correlated covariates. (Must ensure that the predictive ability is retained though by actually fitting the model and keeping track of the adj. r^2 or whatever parameter.)
+
+```{r suggested models}
+eight_pred_auto = lm(body_density ~ age + height + wrist + i_neck + i_abdomen + i_chest + i_weight + forearm, 
+                data = bodyfat_df)
+summary(eight_pred_auto)
+
+seven_pred_sig = lm(body_density ~ age + height + wrist + i_neck + i_abdomen + i_chest + i_weight,
+                    data = bodyfat_df)
+summary(seven_pred_sig)
+```
+
+
+```{r lasso}
+# supply sequence of lambda values for the lasso cross validation for lambda
+lambda_seq <- 10^seq(-3, 0, by = .1)
+set.seed(2022)
+
+# save matrix of predictors to pass to the lasso function
+predictors_dat.state =
+  bodyfat_df %>% 
+  select(age, height, forearm, wrist, i_weight, i_neck, 
+         i_chest, i_abdomen, i_hip, i_thigh, i_knee, i_ankle, i_bicep) %>% 
+    as.matrix()
+
+response_dat.state =
+  bodyfat_df %>% 
+  select(body_density) %>% 
+  as.matrix()
+
+cv_lasso_fit <- glmnet::cv.glmnet(x = predictors_dat.state,
+                                    y = response_dat.state,
+                                    lambda = lambda_seq,
+                                    nfolds = 10)
+cv_lasso_fit
+```
+
+Min lambda is 0.001000.
+
+```{r lasso regression}
+lasso_fit = glmnet::glmnet(x = predictors_dat.state,
+                           y = response_dat.state,
+                           lambda = cv_lasso_fit$lambda.min)
+coef(lasso_fit)
+```
+
+Based on LASSO: 4 predictors (different though) - age, height, wrist, i_abdomen.
+
+```{r fitting new model}
+four_pred_lasso = lm(body_density ~ age + height + wrist + i_abdomen, 
+                      data = bodyfat_df)
+summary(four_pred_lasso)
+```
+
+Small model! About the same adjusted R^2. Predictive capacity retained.
+
+## Diagnostics
+
+```{r diagnostic plots}
+par(mfrow = c(2,2))
+plot(six_pred)
+
+par(mfrow = c(2,2))
+plot(eight_pred)
+
+par(mfrow = c(2,2))
+plot(eight_pred_auto)
+
+par(mfrow = c(2,2))
+plot(seven_pred_sig)
+
+par(mfrow = c(2,2))
+plot(four_pred_lasso)
+```
+
+
+## Validation
+
+```{r cross validation for six_pred}
+set.seed(2022)
+
+# use 10-fold validation and create the training sets
+train = trainControl(method = "cv", number = 10)
+
+# fit the 6-variables model that we selected as our final model
+model_caret = train(body_density ~ age + height + wrist + i_abdomen,
+                    data = bodyfat_df,
+                    trControl = train,
+                    method = 'lm',
+                    na.action = na.pass)
+                    
+                    
+model_caret
+```
+
+
+RMSE         Rsquared   MAE        
+0.009797114  0.7384043  0.008104832 : six_pred
+
+RMSE        Rsquared   MAE        
+0.00981521  0.7354601  0.008116662 : eight_pred
+
+RMSE         Rsquared   MAE        
+0.009784504  0.7335926  0.008047442 : eight_pred_auto
+
+RMSE        Rsquared   MAE        
+0.00981479  0.7344385  0.008082829 : seven_pred
+
+RMSE         Rsquared   MAE        
+0.009892999  0.7339559  0.008172341 : four_pred_lasso
+
+
+WE PICK THE 4 MODEL. USING LASSO. WITH DENSITY AS THE Y (AS RMSE IS THE LOWEST HERE). 
+-- NO COLLINEARITY WITHIN COVARIATES IN THIS MODEL.
+-- NORMALITY ASSUMPTIONS ARE MET (ONLY ONE TRANSFORMED VARIABLE).
+-- NO INFLUENCE OF OUTLIERS.
+-- HOMOSCEDASTIC.
+-- MEANINGFUL VARIABLES. THEY ALL MAKE SENSE.
+
+-- STRENGTHEN THIS ARGUMENT BY POINTING OUT THAT THE COVARIATES IN OTHER MODELS ARE CORRELATED.
+
+
+
+```{r cross validation for six_pred final}
+model_caret$resample
+```
+
+
