@@ -60,7 +60,7 @@ bodyfat_df %>%
 
 ```{r descriptive stats of variables}
 bodyfat_df %>% 
-  select(-id, -bodyfat_siri, -bodyfat_brozeck) %>% 
+  select(-id, -bodyfat_siri, -bodyfat_brozek) %>% 
   gtsummary::tbl_summary() %>% 
   gtsummary::bold_labels()
 ```
