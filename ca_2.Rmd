@@ -1,0 +1,117 @@
+---
+title: "test for untransformation"
+author: "Tvisha R. Devavarapu"
+date: "2022-12-12"
+output: github_document
+---
+
+```{r libraries set up, message = FALSE}
+library(tidyverse)
+library(ggplot2)
+library(patchwork)
+library(GGally)
+library(leaps)
+library(caret)
+```
+
+```{r dataset set up}
+bodyfat_df = 
+  readxl::read_excel("body_density_data.xlsx") %>%
+  janitor::clean_names() 
+
+head(bodyfat_df)
+```
+
+
+```{r}
+bodyfat_df = 
+  bodyfat_df %>% 
+  select(-id, -bodyfat_siri, -body_density)
+```
+
+```{r}
+mult.fit = lm(bodyfat_brozek ~ ., data = bodyfat_df)
+step(mult.fit, direction = 'backward')
+step(mult.fit, direction = 'both')
+
+eight_unt = lm(bodyfat_brozek ~ age + weight + neck + abdomen + hip + thigh + forearm + wrist, data = bodyfat_df)
+summary(eight_unt)
+```
+
+```{r}
+set.seed(2022)
+
+# use 10-fold validation and create the training sets
+train = trainControl(method = "cv", number = 10)
+
+# fit the 6-variables model that we selected as our final model
+model_caret = train(bodyfat_brozek ~ age + weight + neck + abdomen + hip + thigh + forearm + wrist,
+                    data = bodyfat_df,
+                    trControl = train,
+                    method = 'lm',
+                    na.action = na.pass)
+                    
+                    
+model_caret
+```
+
+```{r}
+par(mfrow = c(2,2))
+plot(eight_unt)
+```
+
+```{r lasso}
+# supply sequence of lambda values for the lasso cross validation for lambda
+lambda_seq <- 10^seq(-3, 0, by = .1)
+set.seed(2022)
+
+# save matrix of predictors to pass to the lasso function
+predictors_dat.state =
+  bodyfat_df %>% 
+  select(age, height, forearm, wrist, weight, neck, 
+         chest, abdomen, hip, thigh, knee, ankle, bicep) %>% 
+    as.matrix()
+
+response_dat.state =
+  bodyfat_df %>% 
+  select(bodyfat_brozek) %>% 
+  as.matrix()
+
+cv_lasso_fit <- glmnet::cv.glmnet(x = predictors_dat.state,
+                                    y = response_dat.state,
+                                    lambda = lambda_seq,
+                                    nfolds = 10)
+cv_lasso_fit
+```
+
+Min lambda is 0.0316.
+
+```{r lasso regression}
+lasso_fit = glmnet::glmnet(x = predictors_dat.state,
+                           y = response_dat.state,
+                           lambda = cv_lasso_fit$lambda.min)
+coef(lasso_fit)
+```
+
+```{r}
+eleven_lasso = lm(bodyfat_brozek ~ age + height + forearm + weight + neck + abdomen + hip + thigh + forearm + wrist + bicep, data = bodyfat_df)
+summary(eleven_lasso)
+```
+
+```{r}
+set.seed(2022)
+
+# use 10-fold validation and create the training sets
+train = trainControl(method = "cv", number = 10)
+
+# fit the 6-variables model that we selected as our final model
+model_caret = train(bodyfat_brozek ~ age + height + forearm + weight + neck + abdomen + hip + thigh + forearm + wrist + bicep,
+                    data = bodyfat_df,
+                    trControl = train,
+                    method = 'lm',
+                    na.action = na.pass)
+                    
+                    
+model_caret
+```
+
