@@ -8,6 +8,7 @@ library(ggplot2)
 library(patchwork)
 library(GGally)
 library(leaps)
+library(caret)
 ```
 
 ``` r
@@ -88,12 +89,12 @@ bodyfat_df %>%
   gtsummary::bold_labels()
 ```
 
-<div id="trvvuldmll" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="mtbxsvvjwf" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
 
-#trvvuldmll .gt_table {
+#mtbxsvvjwf .gt_table {
   display: table;
   border-collapse: collapse;
   margin-left: auto;
@@ -118,7 +119,7 @@ bodyfat_df %>%
   border-left-color: #D3D3D3;
 }
 
-#trvvuldmll .gt_heading {
+#mtbxsvvjwf .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -130,7 +131,7 @@ bodyfat_df %>%
   border-right-color: #D3D3D3;
 }
 
-#trvvuldmll .gt_title {
+#mtbxsvvjwf .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -142,7 +143,7 @@ bodyfat_df %>%
   border-bottom-width: 0;
 }
 
-#trvvuldmll .gt_subtitle {
+#mtbxsvvjwf .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -154,13 +155,13 @@ bodyfat_df %>%
   border-top-width: 0;
 }
 
-#trvvuldmll .gt_bottom_border {
+#mtbxsvvjwf .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#trvvuldmll .gt_col_headings {
+#mtbxsvvjwf .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -175,7 +176,7 @@ bodyfat_df %>%
   border-right-color: #D3D3D3;
 }
 
-#trvvuldmll .gt_col_heading {
+#mtbxsvvjwf .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -195,7 +196,7 @@ bodyfat_df %>%
   overflow-x: hidden;
 }
 
-#trvvuldmll .gt_column_spanner_outer {
+#mtbxsvvjwf .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -207,15 +208,15 @@ bodyfat_df %>%
   padding-right: 4px;
 }
 
-#trvvuldmll .gt_column_spanner_outer:first-child {
+#mtbxsvvjwf .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#trvvuldmll .gt_column_spanner_outer:last-child {
+#mtbxsvvjwf .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#trvvuldmll .gt_column_spanner {
+#mtbxsvvjwf .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -227,7 +228,7 @@ bodyfat_df %>%
   width: 100%;
 }
 
-#trvvuldmll .gt_group_heading {
+#mtbxsvvjwf .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -252,7 +253,7 @@ bodyfat_df %>%
   vertical-align: middle;
 }
 
-#trvvuldmll .gt_empty_group_heading {
+#mtbxsvvjwf .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -267,15 +268,15 @@ bodyfat_df %>%
   vertical-align: middle;
 }
 
-#trvvuldmll .gt_from_md > :first-child {
+#mtbxsvvjwf .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#trvvuldmll .gt_from_md > :last-child {
+#mtbxsvvjwf .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#trvvuldmll .gt_row {
+#mtbxsvvjwf .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -294,7 +295,7 @@ bodyfat_df %>%
   overflow-x: hidden;
 }
 
-#trvvuldmll .gt_stub {
+#mtbxsvvjwf .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -307,7 +308,7 @@ bodyfat_df %>%
   padding-right: 5px;
 }
 
-#trvvuldmll .gt_stub_row_group {
+#mtbxsvvjwf .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -321,11 +322,11 @@ bodyfat_df %>%
   vertical-align: top;
 }
 
-#trvvuldmll .gt_row_group_first td {
+#mtbxsvvjwf .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#trvvuldmll .gt_summary_row {
+#mtbxsvvjwf .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -335,16 +336,16 @@ bodyfat_df %>%
   padding-right: 5px;
 }
 
-#trvvuldmll .gt_first_summary_row {
+#mtbxsvvjwf .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#trvvuldmll .gt_first_summary_row.thick {
+#mtbxsvvjwf .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#trvvuldmll .gt_last_summary_row {
+#mtbxsvvjwf .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -354,7 +355,7 @@ bodyfat_df %>%
   border-bottom-color: #D3D3D3;
 }
 
-#trvvuldmll .gt_grand_summary_row {
+#mtbxsvvjwf .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -364,7 +365,7 @@ bodyfat_df %>%
   padding-right: 5px;
 }
 
-#trvvuldmll .gt_first_grand_summary_row {
+#mtbxsvvjwf .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -374,11 +375,11 @@ bodyfat_df %>%
   border-top-color: #D3D3D3;
 }
 
-#trvvuldmll .gt_striped {
+#mtbxsvvjwf .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#trvvuldmll .gt_table_body {
+#mtbxsvvjwf .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -387,7 +388,7 @@ bodyfat_df %>%
   border-bottom-color: #D3D3D3;
 }
 
-#trvvuldmll .gt_footnotes {
+#mtbxsvvjwf .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -401,7 +402,7 @@ bodyfat_df %>%
   border-right-color: #D3D3D3;
 }
 
-#trvvuldmll .gt_footnote {
+#mtbxsvvjwf .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-left: 4px;
@@ -410,7 +411,7 @@ bodyfat_df %>%
   padding-right: 5px;
 }
 
-#trvvuldmll .gt_sourcenotes {
+#mtbxsvvjwf .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -424,7 +425,7 @@ bodyfat_df %>%
   border-right-color: #D3D3D3;
 }
 
-#trvvuldmll .gt_sourcenote {
+#mtbxsvvjwf .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -432,64 +433,64 @@ bodyfat_df %>%
   padding-right: 5px;
 }
 
-#trvvuldmll .gt_left {
+#mtbxsvvjwf .gt_left {
   text-align: left;
 }
 
-#trvvuldmll .gt_center {
+#mtbxsvvjwf .gt_center {
   text-align: center;
 }
 
-#trvvuldmll .gt_right {
+#mtbxsvvjwf .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#trvvuldmll .gt_font_normal {
+#mtbxsvvjwf .gt_font_normal {
   font-weight: normal;
 }
 
-#trvvuldmll .gt_font_bold {
+#mtbxsvvjwf .gt_font_bold {
   font-weight: bold;
 }
 
-#trvvuldmll .gt_font_italic {
+#mtbxsvvjwf .gt_font_italic {
   font-style: italic;
 }
 
-#trvvuldmll .gt_super {
+#mtbxsvvjwf .gt_super {
   font-size: 65%;
 }
 
-#trvvuldmll .gt_footnote_marks {
+#mtbxsvvjwf .gt_footnote_marks {
   font-style: italic;
   font-weight: normal;
   font-size: 75%;
   vertical-align: 0.4em;
 }
 
-#trvvuldmll .gt_asterisk {
+#mtbxsvvjwf .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#trvvuldmll .gt_indent_1 {
+#mtbxsvvjwf .gt_indent_1 {
   text-indent: 5px;
 }
 
-#trvvuldmll .gt_indent_2 {
+#mtbxsvvjwf .gt_indent_2 {
   text-indent: 10px;
 }
 
-#trvvuldmll .gt_indent_3 {
+#mtbxsvvjwf .gt_indent_3 {
   text-indent: 15px;
 }
 
-#trvvuldmll .gt_indent_4 {
+#mtbxsvvjwf .gt_indent_4 {
   text-indent: 20px;
 }
 
-#trvvuldmll .gt_indent_5 {
+#mtbxsvvjwf .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -1410,3 +1411,86 @@ summary(eight_pred_lasso)
 DISCUSSION: Adj R^2 only SLIIIIGHTLY better than six_pred model.
 Principle of parsimony? Smaller model is better? Not much predictive
 capacity is lost.
+
+## Diagnostics
+
+``` r
+par(mfrow = c(2,2))
+plot(six_pred)
+```
+
+![](Code_Analysis_files/figure-gfm/diagnostic%20plots-1.png)<!-- -->
+
+``` r
+par(mfrow = c(2,2))
+plot(eight_pred)
+```
+
+![](Code_Analysis_files/figure-gfm/diagnostic%20plots-2.png)<!-- -->
+
+``` r
+par(mfrow = c(2,2))
+plot(eight_pred_lasso)
+```
+
+![](Code_Analysis_files/figure-gfm/diagnostic%20plots-3.png)<!-- -->
+
+Looks good. Super slight differences. For six_pred, things look pretty
+great.
+
+## Validation
+
+``` r
+set.seed(2022)
+
+# use 10-fold validation and create the training sets
+train = trainControl(method = "cv", number = 10)
+
+# fit the 6-variables model that we selected as our final model
+model_caret = train(bodyfat_brozek ~ age + height + forearm + wrist + i_neck + i_abdomen,
+                    data = bodyfat_df,
+                    trControl = train,
+                    method = 'lm',
+                    na.action = na.pass)
+                    
+                    
+model_caret
+```
+
+    ## Linear Regression 
+    ## 
+    ## 252 samples
+    ##   6 predictor
+    ## 
+    ## No pre-processing
+    ## Resampling: Cross-Validated (10 fold) 
+    ## Summary of sample sizes: 227, 227, 225, 227, 227, 227, ... 
+    ## Resampling results:
+    ## 
+    ##   RMSE     Rsquared   MAE     
+    ##   3.88585  0.7422748  3.183994
+    ## 
+    ## Tuning parameter 'intercept' was held constant at a value of TRUE
+
+RMSE Rsquared MAE  
+3.88585 0.7422748 3.183994
+
+``` r
+model_caret$resample
+```
+
+    ##        RMSE  Rsquared      MAE Resample
+    ## 1  3.570328 0.8541913 2.911265   Fold01
+    ## 2  4.155976 0.7107138 3.710415   Fold02
+    ## 3  4.559688 0.5467370 3.689257   Fold03
+    ## 4  4.353318 0.6844580 3.520598   Fold04
+    ## 5  3.686631 0.7376389 2.875363   Fold05
+    ## 6  4.571166 0.6299134 3.652423   Fold06
+    ## 7  3.413036 0.8231125 2.813553   Fold07
+    ## 8  3.689364 0.8287664 3.041301   Fold08
+    ## 9  3.275453 0.8112920 2.597074   Fold09
+    ## 10 3.583535 0.7959243 3.028695   Fold10
+
+From the output above, the overall RMSE (root mean squared error) is
+3.88585, which would mean our MSE is 15.0998302. Our MAE (mean absolute
+error) is 3.183994.

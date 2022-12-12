@@ -10,6 +10,7 @@ library(ggplot2)
 library(patchwork)
 library(GGally)
 library(leaps)
+library(caret)
 ```
 
 ```{r dataset set up}
@@ -216,3 +217,51 @@ summary(eight_pred_lasso)
 
 DISCUSSION: Adj R^2 only SLIIIIGHTLY better than six_pred model. 
 Principle of parsimony? Smaller model is better? Not much predictive capacity is lost.
+
+## Diagnostics
+
+```{r diagnostic plots}
+par(mfrow = c(2,2))
+plot(six_pred)
+
+par(mfrow = c(2,2))
+plot(eight_pred)
+
+par(mfrow = c(2,2))
+plot(eight_pred_lasso)
+```
+
+Looks good. Super slight differences. For six_pred, things look pretty great.
+
+
+## Validation
+
+```{r cross validation for six_pred}
+set.seed(2022)
+
+# use 10-fold validation and create the training sets
+train = trainControl(method = "cv", number = 10)
+
+# fit the 6-variables model that we selected as our final model
+model_caret = train(bodyfat_brozek ~ age + height + forearm + wrist + i_neck + i_abdomen,
+                    data = bodyfat_df,
+                    trControl = train,
+                    method = 'lm',
+                    na.action = na.pass)
+                    
+                    
+model_caret
+```
+
+
+RMSE     Rsquared   MAE     
+3.88585  0.7422748  3.183994
+
+
+```{r cross validation for six_pred final}
+model_caret$resample
+```
+
+From the output above, the overall RMSE (root mean squared error) is 3.88585, which would mean our MSE is 15.0998302. Our MAE (mean absolute error) is 3.183994.
+
+
