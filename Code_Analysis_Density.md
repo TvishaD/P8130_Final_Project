@@ -8,8 +8,24 @@ library(tidyverse)
 library(ggplot2)
 library(patchwork)
 library(GGally)
+```
+
+    ## Warning: 程辑包'GGally'是用R版本4.2.2 来建造的
+
+``` r
 library(leaps)
+```
+
+    ## Warning: 程辑包'leaps'是用R版本4.2.2 来建造的
+
+``` r
 library(caret)
+```
+
+    ## Warning: 程辑包'caret'是用R版本4.2.2 来建造的
+
+``` r
+library(modelr)
 ```
 
 ``` r
@@ -89,12 +105,12 @@ bodyfat_df %>%
   gtsummary::bold_labels()
 ```
 
-<div id="tqycakdhgz" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="tastwyiack" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
 
-#tqycakdhgz .gt_table {
+#tastwyiack .gt_table {
   display: table;
   border-collapse: collapse;
   margin-left: auto;
@@ -119,7 +135,7 @@ bodyfat_df %>%
   border-left-color: #D3D3D3;
 }
 
-#tqycakdhgz .gt_heading {
+#tastwyiack .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -131,7 +147,7 @@ bodyfat_df %>%
   border-right-color: #D3D3D3;
 }
 
-#tqycakdhgz .gt_title {
+#tastwyiack .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -143,7 +159,7 @@ bodyfat_df %>%
   border-bottom-width: 0;
 }
 
-#tqycakdhgz .gt_subtitle {
+#tastwyiack .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -155,13 +171,13 @@ bodyfat_df %>%
   border-top-width: 0;
 }
 
-#tqycakdhgz .gt_bottom_border {
+#tastwyiack .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#tqycakdhgz .gt_col_headings {
+#tastwyiack .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -176,7 +192,7 @@ bodyfat_df %>%
   border-right-color: #D3D3D3;
 }
 
-#tqycakdhgz .gt_col_heading {
+#tastwyiack .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -196,7 +212,7 @@ bodyfat_df %>%
   overflow-x: hidden;
 }
 
-#tqycakdhgz .gt_column_spanner_outer {
+#tastwyiack .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -208,15 +224,15 @@ bodyfat_df %>%
   padding-right: 4px;
 }
 
-#tqycakdhgz .gt_column_spanner_outer:first-child {
+#tastwyiack .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#tqycakdhgz .gt_column_spanner_outer:last-child {
+#tastwyiack .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#tqycakdhgz .gt_column_spanner {
+#tastwyiack .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -228,7 +244,7 @@ bodyfat_df %>%
   width: 100%;
 }
 
-#tqycakdhgz .gt_group_heading {
+#tastwyiack .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -253,7 +269,7 @@ bodyfat_df %>%
   vertical-align: middle;
 }
 
-#tqycakdhgz .gt_empty_group_heading {
+#tastwyiack .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -268,15 +284,15 @@ bodyfat_df %>%
   vertical-align: middle;
 }
 
-#tqycakdhgz .gt_from_md > :first-child {
+#tastwyiack .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#tqycakdhgz .gt_from_md > :last-child {
+#tastwyiack .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#tqycakdhgz .gt_row {
+#tastwyiack .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -295,7 +311,7 @@ bodyfat_df %>%
   overflow-x: hidden;
 }
 
-#tqycakdhgz .gt_stub {
+#tastwyiack .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -308,7 +324,7 @@ bodyfat_df %>%
   padding-right: 5px;
 }
 
-#tqycakdhgz .gt_stub_row_group {
+#tastwyiack .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -322,11 +338,11 @@ bodyfat_df %>%
   vertical-align: top;
 }
 
-#tqycakdhgz .gt_row_group_first td {
+#tastwyiack .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#tqycakdhgz .gt_summary_row {
+#tastwyiack .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -336,16 +352,16 @@ bodyfat_df %>%
   padding-right: 5px;
 }
 
-#tqycakdhgz .gt_first_summary_row {
+#tastwyiack .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#tqycakdhgz .gt_first_summary_row.thick {
+#tastwyiack .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#tqycakdhgz .gt_last_summary_row {
+#tastwyiack .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -355,7 +371,7 @@ bodyfat_df %>%
   border-bottom-color: #D3D3D3;
 }
 
-#tqycakdhgz .gt_grand_summary_row {
+#tastwyiack .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -365,7 +381,7 @@ bodyfat_df %>%
   padding-right: 5px;
 }
 
-#tqycakdhgz .gt_first_grand_summary_row {
+#tastwyiack .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -375,11 +391,11 @@ bodyfat_df %>%
   border-top-color: #D3D3D3;
 }
 
-#tqycakdhgz .gt_striped {
+#tastwyiack .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#tqycakdhgz .gt_table_body {
+#tastwyiack .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -388,7 +404,7 @@ bodyfat_df %>%
   border-bottom-color: #D3D3D3;
 }
 
-#tqycakdhgz .gt_footnotes {
+#tastwyiack .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -402,7 +418,7 @@ bodyfat_df %>%
   border-right-color: #D3D3D3;
 }
 
-#tqycakdhgz .gt_footnote {
+#tastwyiack .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-left: 4px;
@@ -411,7 +427,7 @@ bodyfat_df %>%
   padding-right: 5px;
 }
 
-#tqycakdhgz .gt_sourcenotes {
+#tastwyiack .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -425,7 +441,7 @@ bodyfat_df %>%
   border-right-color: #D3D3D3;
 }
 
-#tqycakdhgz .gt_sourcenote {
+#tastwyiack .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -433,64 +449,64 @@ bodyfat_df %>%
   padding-right: 5px;
 }
 
-#tqycakdhgz .gt_left {
+#tastwyiack .gt_left {
   text-align: left;
 }
 
-#tqycakdhgz .gt_center {
+#tastwyiack .gt_center {
   text-align: center;
 }
 
-#tqycakdhgz .gt_right {
+#tastwyiack .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#tqycakdhgz .gt_font_normal {
+#tastwyiack .gt_font_normal {
   font-weight: normal;
 }
 
-#tqycakdhgz .gt_font_bold {
+#tastwyiack .gt_font_bold {
   font-weight: bold;
 }
 
-#tqycakdhgz .gt_font_italic {
+#tastwyiack .gt_font_italic {
   font-style: italic;
 }
 
-#tqycakdhgz .gt_super {
+#tastwyiack .gt_super {
   font-size: 65%;
 }
 
-#tqycakdhgz .gt_footnote_marks {
+#tastwyiack .gt_footnote_marks {
   font-style: italic;
   font-weight: normal;
   font-size: 75%;
   vertical-align: 0.4em;
 }
 
-#tqycakdhgz .gt_asterisk {
+#tastwyiack .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#tqycakdhgz .gt_indent_1 {
+#tastwyiack .gt_indent_1 {
   text-indent: 5px;
 }
 
-#tqycakdhgz .gt_indent_2 {
+#tastwyiack .gt_indent_2 {
   text-indent: 10px;
 }
 
-#tqycakdhgz .gt_indent_3 {
+#tastwyiack .gt_indent_3 {
   text-indent: 15px;
 }
 
-#tqycakdhgz .gt_indent_4 {
+#tastwyiack .gt_indent_4 {
   text-indent: 20px;
 }
 
-#tqycakdhgz .gt_indent_5 {
+#tastwyiack .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -1553,3 +1569,61 @@ model_caret$resample
     ## 8  0.011372452 0.6360131 0.009179398   Fold08
     ## 9  0.009836959 0.8206014 0.008460619   Fold09
     ## 10 0.007994449 0.8510879 0.006170594   Fold10
+
+### Plot
+
+``` r
+set.seed(2022)
+
+#a new id column
+cv_bodyfat = bodyfat_df %>% mutate(id = row_number()) %>% relocate(id)
+
+
+train_df = sample_n(cv_bodyfat, 80)
+test_df = anti_join(cv_bodyfat, train_df, by = "id")
+
+cv_df = 
+  crossv_mc(cv_bodyfat, 100) 
+
+cv_df =
+  cv_df %>% 
+  mutate(
+    train = map(train, as_tibble),
+    test = map(test, as_tibble))
+
+cv_df = 
+  cv_df %>% 
+  mutate(
+    four_pred_mod = map(train, ~lm(body_density ~ age + height + wrist + i_abdomen, 
+                                   data = .x)),
+    six_pred_mod = map(train, ~lm(body_density ~ age + height + i_bicep + wrist + 
+                                    i_neck + i_abdomen, data = .x)),
+    seven_pred_mod = map(train, ~lm(body_density ~ age + height + wrist + i_neck + 
+                                      i_abdomen + i_chest + i_weight, data = .x)),
+    eight_pred_mod_stepwise = map(train, ~lm(body_density ~ age + height + wrist + i_neck + 
+                                      i_abdomen + i_chest + i_weight + i_bicep, 
+                                    data = .x)),
+    eight_pred_mod_criterion = map(train, ~lm(body_density ~ age + height + forearm + wrist +
+                                           i_weight + i_neck + i_chest + i_abdomen, 
+                                    data = .x))) %>% 
+  mutate(
+    rmse_four_pred = map2_dbl(four_pred_mod, test, ~rmse(model = .x, data = .y)),
+    rmse_six_pred = map2_dbl(six_pred_mod, test, ~rmse(model = .x, data = .y)),
+    rmse_seven_pred = map2_dbl(seven_pred_mod, test, ~rmse(model = .x, data = .y)),
+    rmse_eight_stepwise = map2_dbl(eight_pred_mod_stepwise, test, ~rmse(model = .x, 
+                                                                        data = .y)),
+    rmse_eight_criterion = map2_dbl(eight_pred_mod_criterion, test, ~rmse(model = .x, 
+                                                                        data = .y)))
+
+cv_df %>% 
+  select(starts_with("rmse")) %>% 
+  pivot_longer(
+    everything(),
+    names_to = "model", 
+    values_to = "rmse",
+    names_prefix = "rmse_") %>% 
+  mutate(model = fct_inorder(model)) %>% 
+  ggplot(aes(x = model, y = rmse)) + geom_violin()
+```
+
+![](Code_Analysis_Density_files/figure-gfm/rmse_plot-1.png)<!-- -->

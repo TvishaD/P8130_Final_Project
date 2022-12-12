@@ -12,6 +12,7 @@ library(patchwork)
 library(GGally)
 library(leaps)
 library(caret)
+library(modelr)
 ```
 
 ```{r dataset set up}
@@ -299,4 +300,59 @@ WE PICK THE 4 MODEL. USING LASSO. WITH DENSITY AS THE Y (AS RMSE IS THE LOWEST H
 model_caret$resample
 ```
 
+### Plot
+
+```{r rmse_plot}
+set.seed(2022)
+
+#a new id column
+cv_bodyfat = bodyfat_df %>% mutate(id = row_number()) %>% relocate(id)
+
+
+train_df = sample_n(cv_bodyfat, 80)
+test_df = anti_join(cv_bodyfat, train_df, by = "id")
+
+cv_df = 
+  crossv_mc(cv_bodyfat, 100) 
+
+cv_df =
+  cv_df %>% 
+  mutate(
+    train = map(train, as_tibble),
+    test = map(test, as_tibble))
+
+cv_df = 
+  cv_df %>% 
+  mutate(
+    four_pred_mod = map(train, ~lm(body_density ~ age + height + wrist + i_abdomen, 
+                                   data = .x)),
+    six_pred_mod = map(train, ~lm(body_density ~ age + height + i_bicep + wrist + 
+                                    i_neck + i_abdomen, data = .x)),
+    seven_pred_mod = map(train, ~lm(body_density ~ age + height + wrist + i_neck + 
+                                      i_abdomen + i_chest + i_weight, data = .x)),
+    eight_pred_mod_stepwise = map(train, ~lm(body_density ~ age + height + wrist + i_neck + 
+                                      i_abdomen + i_chest + i_weight + i_bicep, 
+                                    data = .x)),
+    eight_pred_mod_criterion = map(train, ~lm(body_density ~ age + height + forearm + wrist +
+                                           i_weight + i_neck + i_chest + i_abdomen, 
+                                    data = .x))) %>% 
+  mutate(
+    rmse_four_pred = map2_dbl(four_pred_mod, test, ~rmse(model = .x, data = .y)),
+    rmse_six_pred = map2_dbl(six_pred_mod, test, ~rmse(model = .x, data = .y)),
+    rmse_seven_pred = map2_dbl(seven_pred_mod, test, ~rmse(model = .x, data = .y)),
+    rmse_eight_stepwise = map2_dbl(eight_pred_mod_stepwise, test, ~rmse(model = .x, 
+                                                                        data = .y)),
+    rmse_eight_criterion = map2_dbl(eight_pred_mod_criterion, test, ~rmse(model = .x, 
+                                                                        data = .y)))
+
+cv_df %>% 
+  select(starts_with("rmse")) %>% 
+  pivot_longer(
+    everything(),
+    names_to = "model", 
+    values_to = "rmse",
+    names_prefix = "rmse_") %>% 
+  mutate(model = fct_inorder(model)) %>% 
+  ggplot(aes(x = model, y = rmse)) + geom_violin()
+```
 
