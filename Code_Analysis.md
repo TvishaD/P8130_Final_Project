@@ -88,12 +88,12 @@ bodyfat_df %>%
   gtsummary::bold_labels()
 ```
 
-<div id="xufzvojddw" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="trvvuldmll" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
 
-#xufzvojddw .gt_table {
+#trvvuldmll .gt_table {
   display: table;
   border-collapse: collapse;
   margin-left: auto;
@@ -118,7 +118,7 @@ bodyfat_df %>%
   border-left-color: #D3D3D3;
 }
 
-#xufzvojddw .gt_heading {
+#trvvuldmll .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -130,7 +130,7 @@ bodyfat_df %>%
   border-right-color: #D3D3D3;
 }
 
-#xufzvojddw .gt_title {
+#trvvuldmll .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -142,7 +142,7 @@ bodyfat_df %>%
   border-bottom-width: 0;
 }
 
-#xufzvojddw .gt_subtitle {
+#trvvuldmll .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -154,13 +154,13 @@ bodyfat_df %>%
   border-top-width: 0;
 }
 
-#xufzvojddw .gt_bottom_border {
+#trvvuldmll .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#xufzvojddw .gt_col_headings {
+#trvvuldmll .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -175,7 +175,7 @@ bodyfat_df %>%
   border-right-color: #D3D3D3;
 }
 
-#xufzvojddw .gt_col_heading {
+#trvvuldmll .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -195,7 +195,7 @@ bodyfat_df %>%
   overflow-x: hidden;
 }
 
-#xufzvojddw .gt_column_spanner_outer {
+#trvvuldmll .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -207,15 +207,15 @@ bodyfat_df %>%
   padding-right: 4px;
 }
 
-#xufzvojddw .gt_column_spanner_outer:first-child {
+#trvvuldmll .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#xufzvojddw .gt_column_spanner_outer:last-child {
+#trvvuldmll .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#xufzvojddw .gt_column_spanner {
+#trvvuldmll .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -227,7 +227,7 @@ bodyfat_df %>%
   width: 100%;
 }
 
-#xufzvojddw .gt_group_heading {
+#trvvuldmll .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -252,7 +252,7 @@ bodyfat_df %>%
   vertical-align: middle;
 }
 
-#xufzvojddw .gt_empty_group_heading {
+#trvvuldmll .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -267,15 +267,15 @@ bodyfat_df %>%
   vertical-align: middle;
 }
 
-#xufzvojddw .gt_from_md > :first-child {
+#trvvuldmll .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#xufzvojddw .gt_from_md > :last-child {
+#trvvuldmll .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#xufzvojddw .gt_row {
+#trvvuldmll .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -294,7 +294,7 @@ bodyfat_df %>%
   overflow-x: hidden;
 }
 
-#xufzvojddw .gt_stub {
+#trvvuldmll .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -307,7 +307,7 @@ bodyfat_df %>%
   padding-right: 5px;
 }
 
-#xufzvojddw .gt_stub_row_group {
+#trvvuldmll .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -321,11 +321,11 @@ bodyfat_df %>%
   vertical-align: top;
 }
 
-#xufzvojddw .gt_row_group_first td {
+#trvvuldmll .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#xufzvojddw .gt_summary_row {
+#trvvuldmll .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -335,16 +335,16 @@ bodyfat_df %>%
   padding-right: 5px;
 }
 
-#xufzvojddw .gt_first_summary_row {
+#trvvuldmll .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#xufzvojddw .gt_first_summary_row.thick {
+#trvvuldmll .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#xufzvojddw .gt_last_summary_row {
+#trvvuldmll .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -354,7 +354,7 @@ bodyfat_df %>%
   border-bottom-color: #D3D3D3;
 }
 
-#xufzvojddw .gt_grand_summary_row {
+#trvvuldmll .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -364,7 +364,7 @@ bodyfat_df %>%
   padding-right: 5px;
 }
 
-#xufzvojddw .gt_first_grand_summary_row {
+#trvvuldmll .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -374,11 +374,11 @@ bodyfat_df %>%
   border-top-color: #D3D3D3;
 }
 
-#xufzvojddw .gt_striped {
+#trvvuldmll .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#xufzvojddw .gt_table_body {
+#trvvuldmll .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -387,7 +387,7 @@ bodyfat_df %>%
   border-bottom-color: #D3D3D3;
 }
 
-#xufzvojddw .gt_footnotes {
+#trvvuldmll .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -401,7 +401,7 @@ bodyfat_df %>%
   border-right-color: #D3D3D3;
 }
 
-#xufzvojddw .gt_footnote {
+#trvvuldmll .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-left: 4px;
@@ -410,7 +410,7 @@ bodyfat_df %>%
   padding-right: 5px;
 }
 
-#xufzvojddw .gt_sourcenotes {
+#trvvuldmll .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -424,7 +424,7 @@ bodyfat_df %>%
   border-right-color: #D3D3D3;
 }
 
-#xufzvojddw .gt_sourcenote {
+#trvvuldmll .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -432,64 +432,64 @@ bodyfat_df %>%
   padding-right: 5px;
 }
 
-#xufzvojddw .gt_left {
+#trvvuldmll .gt_left {
   text-align: left;
 }
 
-#xufzvojddw .gt_center {
+#trvvuldmll .gt_center {
   text-align: center;
 }
 
-#xufzvojddw .gt_right {
+#trvvuldmll .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#xufzvojddw .gt_font_normal {
+#trvvuldmll .gt_font_normal {
   font-weight: normal;
 }
 
-#xufzvojddw .gt_font_bold {
+#trvvuldmll .gt_font_bold {
   font-weight: bold;
 }
 
-#xufzvojddw .gt_font_italic {
+#trvvuldmll .gt_font_italic {
   font-style: italic;
 }
 
-#xufzvojddw .gt_super {
+#trvvuldmll .gt_super {
   font-size: 65%;
 }
 
-#xufzvojddw .gt_footnote_marks {
+#trvvuldmll .gt_footnote_marks {
   font-style: italic;
   font-weight: normal;
   font-size: 75%;
   vertical-align: 0.4em;
 }
 
-#xufzvojddw .gt_asterisk {
+#trvvuldmll .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#xufzvojddw .gt_indent_1 {
+#trvvuldmll .gt_indent_1 {
   text-indent: 5px;
 }
 
-#xufzvojddw .gt_indent_2 {
+#trvvuldmll .gt_indent_2 {
   text-indent: 10px;
 }
 
-#xufzvojddw .gt_indent_3 {
+#trvvuldmll .gt_indent_3 {
   text-indent: 15px;
 }
 
-#xufzvojddw .gt_indent_4 {
+#trvvuldmll .gt_indent_4 {
   text-indent: 20px;
 }
 
-#xufzvojddw .gt_indent_5 {
+#trvvuldmll .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -1311,3 +1311,102 @@ anova(six_pred, eight_pred)
 
 DISCUSSION: Smaller is better. Can discuss anova hypotheses and results
 as proof.
+
+``` r
+# supply sequence of lambda values for the lasso cross validation for lambda
+lambda_seq <- 10^seq(-3, 0, by = .1)
+set.seed(2022)
+
+# save matrix of predictors to pass to the lasso function
+predictors_dat.state =
+  bodyfat_df %>% 
+  select(age, height, forearm, wrist, i_weight, i_neck, 
+         i_chest, i_abdomen, i_hip, i_thigh, i_knee, i_ankle, i_bicep) %>% 
+    as.matrix()
+
+response_dat.state =
+  bodyfat_df %>% 
+  select(bodyfat_brozek) %>% 
+  as.matrix()
+
+cv_lasso_fit <- glmnet::cv.glmnet(x = predictors_dat.state,
+                                    y = response_dat.state,
+                                    lambda = lambda_seq,
+                                    nfolds = 10)
+cv_lasso_fit
+```
+
+    ## 
+    ## Call:  glmnet::cv.glmnet(x = predictors_dat.state, y = response_dat.state,      lambda = lambda_seq, nfolds = 10) 
+    ## 
+    ## Measure: Mean-Squared Error 
+    ## 
+    ##      Lambda Index Measure     SE Nonzero
+    ## min 0.07943    12   15.79 0.8148       8
+    ## 1se 0.31623     6   16.42 1.0679       4
+
+Min lambda is 0.07943.
+
+``` r
+lasso_fit = glmnet::glmnet(x = predictors_dat.state,
+                           y = response_dat.state,
+                           lambda = cv_lasso_fit$lambda.min)
+coef(lasso_fit)
+```
+
+    ## 14 x 1 sparse Matrix of class "dgCMatrix"
+    ##                        s0
+    ## (Intercept)  1.236081e+02
+    ## age          4.819744e-02
+    ## height      -3.759793e-01
+    ## forearm      1.434306e-01
+    ## wrist       -1.454550e+00
+    ## i_weight     .           
+    ## i_neck       4.510362e+02
+    ## i_chest      .           
+    ## i_abdomen   -5.980554e+03
+    ## i_hip        .           
+    ## i_thigh     -1.369273e+02
+    ## i_knee       .           
+    ## i_ankle      .           
+    ## i_bicep     -6.846662e+01
+
+Based on LASSO: 8 predictors (different though) - age, height, forearm,
+wrist, i_neck, i_abdomen, i_thigh, i_bicep.
+
+``` r
+eight_pred_lasso = lm(bodyfat_brozek ~ age + height + forearm + wrist + 
+                  i_neck + i_abdomen + i_thigh + i_bicep, data = bodyfat_df)
+summary(eight_pred_lasso)
+```
+
+    ## 
+    ## Call:
+    ## lm(formula = bodyfat_brozek ~ age + height + forearm + wrist + 
+    ##     i_neck + i_abdomen + i_thigh + i_bicep, data = bodyfat_df)
+    ## 
+    ## Residuals:
+    ##      Min       1Q   Median       3Q      Max 
+    ## -10.0552  -2.7528  -0.1444   2.4208   9.6649 
+    ## 
+    ## Coefficients:
+    ##               Estimate Std. Error t value Pr(>|t|)    
+    ## (Intercept)  1.237e+02  1.531e+01   8.081 3.02e-14 ***
+    ## age          6.543e-02  2.742e-02   2.386 0.017806 *  
+    ## height      -3.844e-01  1.113e-01  -3.454 0.000652 ***
+    ## forearm      2.464e-01  1.819e-01   1.355 0.176724    
+    ## wrist       -1.693e+00  4.427e-01  -3.825 0.000166 ***
+    ## i_neck       6.723e+02  2.767e+02   2.430 0.015825 *  
+    ## i_abdomen   -6.035e+03  4.223e+02 -14.291  < 2e-16 ***
+    ## i_thigh     -2.976e+02  3.706e+02  -0.803 0.422792    
+    ## i_bicep     -1.138e+02  1.524e+02  -0.747 0.456056    
+    ## ---
+    ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+    ## 
+    ## Residual standard error: 3.919 on 243 degrees of freedom
+    ## Multiple R-squared:  0.7525, Adjusted R-squared:  0.7444 
+    ## F-statistic: 92.37 on 8 and 243 DF,  p-value: < 2.2e-16
+
+DISCUSSION: Adj R^2 only SLIIIIGHTLY better than six_pred model.
+Principle of parsimony? Smaller model is better? Not much predictive
+capacity is lost.

@@ -172,3 +172,47 @@ anova(six_pred, eight_pred)
 ```
 
 DISCUSSION: Smaller is better. Can discuss anova hypotheses and results as proof.
+
+```{r lasso}
+# supply sequence of lambda values for the lasso cross validation for lambda
+lambda_seq <- 10^seq(-3, 0, by = .1)
+set.seed(2022)
+
+# save matrix of predictors to pass to the lasso function
+predictors_dat.state =
+  bodyfat_df %>% 
+  select(age, height, forearm, wrist, i_weight, i_neck, 
+         i_chest, i_abdomen, i_hip, i_thigh, i_knee, i_ankle, i_bicep) %>% 
+    as.matrix()
+
+response_dat.state =
+  bodyfat_df %>% 
+  select(bodyfat_brozek) %>% 
+  as.matrix()
+
+cv_lasso_fit <- glmnet::cv.glmnet(x = predictors_dat.state,
+                                    y = response_dat.state,
+                                    lambda = lambda_seq,
+                                    nfolds = 10)
+cv_lasso_fit
+```
+
+Min lambda is 0.07943.
+
+```{r lasso regression}
+lasso_fit = glmnet::glmnet(x = predictors_dat.state,
+                           y = response_dat.state,
+                           lambda = cv_lasso_fit$lambda.min)
+coef(lasso_fit)
+```
+
+Based on LASSO: 8 predictors (different though) - age, height, forearm, wrist, i_neck, i_abdomen, i_thigh, i_bicep. 
+
+```{r fitting new model}
+eight_pred_lasso = lm(bodyfat_brozek ~ age + height + forearm + wrist + 
+                  i_neck + i_abdomen + i_thigh + i_bicep, data = bodyfat_df)
+summary(eight_pred_lasso)
+```
+
+DISCUSSION: Adj R^2 only SLIIIIGHTLY better than six_pred model. 
+Principle of parsimony? Smaller model is better? Not much predictive capacity is lost.
