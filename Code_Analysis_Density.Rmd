@@ -24,6 +24,27 @@ bodyfat_df =
 head(bodyfat_df)
 ```
 
+```{r table for variable description in appendix}
+#BEST WAY MIGHT BE JUST TO MAKE ONE IN MICROSOFT WORD MANUALLY AGH.
+
+Variable = c("id", "body_density", "age", "weight", "height", "neck", "chest", "abdomen",
+             "hip", "thigh", "knee", "ankle", "bicep", "forearm", "wrist")
+
+Description = c("Case number: 1-252", "Body density (gm/cm3)", "Age (in years)", "Weight (in lbs",
+                "Height (in inches)", "Circumference of Neck (in cm)", "Circumference of Chest (in cm)",
+                "Circumference of Abdomen (in cm) - measured “at the umbilicus and level with the iliac crest”",
+                "Circumference of Hip (in cm)", "Circumference of Thigh (in cm)", "Circumference of Knee (in cm)",
+                "Circumference of Ankle (in cm)", "Extended bicep circumference (in cm)", 
+                "Circumference of forearm (in cm)", 
+                "Circumference of Wrist (in cm) - – measured “distal to the styloid processes”")
+
+
+df = data.frame(Variable, Description)
+
+df
+```
+
+
 ## Exploratory Analysis and Transformations
 
 ```{r Y distribution exploration}
@@ -46,7 +67,11 @@ bodyfat_df %>%
 density =
 bodyfat_df %>%
   ggplot(aes(x = body_density)) +
-  geom_histogram()
+  geom_histogram() +
+  labs(x = "Body Density Measurement (in gm/cm^3)",
+       y = "Counts") +
+  theme(axis.title = element_text(face = "bold"),
+        axis.text.x = element_text(angle = 70, hjust = 1))
 
 brozek + siri + density
 ```
@@ -64,15 +89,14 @@ bodyfat_df %>%
 bodyfat_df %>% 
   select(-id, -bodyfat_siri, -bodyfat_brozek) %>% 
   gtsummary::tbl_summary() %>% 
-  gtsummary::bold_labels() %>% 
-  modify_caption("**Table 1. Data: Summary Statistics**")
+  gtsummary::bold_labels() 
 ```
 
 ```{r normality, y-x rels, collinearity in covariates (xs)}
 bodyfat_df %>% 
   select(-bodyfat_siri, -bodyfat_brozek, -id) %>% 
   relocate("body_density") %>% 
-  ggpairs()
+  ggpairs(., axisLabels = "none")
 ```
 
 ```{r inv_transformation for weight}
