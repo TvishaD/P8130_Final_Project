@@ -103,13 +103,21 @@ bodyfat_df %>%
 before = 
 bodyfat_df %>%
   ggplot(aes(x = weight)) +
-  geom_density()
+  geom_histogram() +
+  labs(x = "Weight (in lbs)",
+       y = "Counts") +
+  theme(axis.title = element_text(face = "bold"),
+        axis.text.x = element_text(angle = 70, hjust = 1))
 
 after = 
 bodyfat_df %>% 
   mutate(inv_weight = 1/(weight)) %>% 
   ggplot(aes(x = inv_weight)) +
-  geom_density()
+  geom_histogram() +
+  labs(x = "Inverse Weight (1/Weight)",
+       y = "Counts") +
+  theme(axis.title = element_text(face = "bold"),
+        axis.text.x = element_text(angle = 70, hjust = 1))
 
 before + after
 ```
