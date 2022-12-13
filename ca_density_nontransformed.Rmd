@@ -1,11 +1,11 @@
 ---
-title: "Code_Analysis_Density"
+title: "ca_density_non_transformed"
 author: "Tvisha R. Devavarapu"
-date: "2022-12-12"
+date: "2022-12-13"
 output: github_document
 ---
-
-```{r libraries set up, message = FALSE}
+  
+```{r}
 library(tidyverse)
 library(ggplot2)
 library(patchwork)
@@ -13,7 +13,6 @@ library(GGally)
 library(leaps)
 library(caret)
 library(modelr)
-library(gtsummary)
 ```
 
 ```{r dataset set up}
@@ -24,93 +23,11 @@ bodyfat_df =
 head(bodyfat_df)
 ```
 
-## Exploratory Analysis and Transformations
-
-```{r Y distribution exploration}
-par(mfrow=c(1,3))
-
-boxplot(bodyfat_df$bodyfat_brozek, main='bodyfat_brozek')
-boxplot(bodyfat_df$bodyfat_siri, main='bodyfat_siri')
-boxplot(bodyfat_df$body_density, main='bodyfat_density')
-
-brozek = 
-bodyfat_df %>%
-  ggplot(aes(x = bodyfat_brozek)) +
-  geom_histogram()
-
-siri = 
-bodyfat_df %>%
-  ggplot(aes(x = bodyfat_siri)) +
-  geom_histogram()
-
-density =
-bodyfat_df %>%
-  ggplot(aes(x = body_density)) +
-  geom_histogram()
-
-brozek + siri + density
-```
-
-NOTE: All are approximately normal
-DENSITY
-
-```{r checking validity in y choice}
-bodyfat_df %>%
-  ggplot(aes(x = age)) +
-  geom_histogram()
-```
-
-```{r descriptive stats of variables}
-bodyfat_df %>% 
-  select(-id, -bodyfat_siri, -bodyfat_brozek) %>% 
-  gtsummary::tbl_summary() %>% 
-  gtsummary::bold_labels() %>% 
-  modify_caption("**Table 1. Data: Summary Statistics**")
-```
-
-```{r normality, y-x rels, collinearity in covariates (xs)}
-bodyfat_df %>% 
-  select(-bodyfat_siri, -bodyfat_brozek, -id) %>% 
-  relocate("body_density") %>% 
-  ggpairs()
-```
-
-```{r inv_transformation for weight}
-before = 
-bodyfat_df %>%
-  ggplot(aes(x = weight)) +
-  geom_density()
-
-after = 
-bodyfat_df %>% 
-  mutate(inv_weight = 1/(weight)) %>% 
-  ggplot(aes(x = inv_weight)) +
-  geom_density()
-
-before + after
-```
-
-NOTE: For the almost normal but right skewed distributions, inverse transformation is making a considerable difference. From this point, inversely transforming (weight and neck --- bicep). 
-
-```{r inverse transforms}
+```{r}
 bodyfat_df = 
-  bodyfat_df %>%
-  mutate(i_weight = 1/weight,
-         i_neck = 1/neck,
-         i_chest = 1/chest,
-         i_abdomen = 1/abdomen,
-         i_hip = 1/hip,
-         i_thigh = 1/thigh,
-         i_knee = 1/knee,
-         i_ankle = 1/ankle,
-         i_bicep = 1/bicep) %>% 
-  select(-id, -bodyfat_siri, -bodyfat_brozek, -weight, -neck, -chest, -abdomen,
-         -hip, -thigh, -knee, -ankle, -bicep)
-
+  bodyfat_df %>% 
+  select(-id, -bodyfat_siri, -bodyfat_brozek)
 ```
-
-
-NOTE: Collinearity continues though. Weight with all others. Just fyi. Not manually removing any covariates as they would be removed during the model selection processes?
 
 ## Model Selection
 
@@ -128,24 +45,21 @@ step(intercept_only, direction = "forward", scope = formula(mult.fit))
 step(mult.fit, direction = 'both')
 ```
 
-Based on Backward: 8 predictors - age, height, wrist, i_neck, i_abdomen, i_chest, i_weight, i_bicep 
-Based on Forward: 6 predictors - age, height, i_bicep, wrist, i_neck, i_abdomen
-Based on Stepwise: 8 predictors - age, height, wrist, i_neck, i_abdomen, i_chest, i_weight, i_bicep
+Based on Backward: 8 predictors - age, (height), wrist, i_neck, i_abdomen, i_chest, i_weight, i_bicep 
+non-transformed: 9 predictors - age + weight + neck + abdomen + (hip) + thigh + bicep + (forearm) + wrist
+
+Based on Forward: 6 predictors - (age), (height), i_bicep, wrist, i_neck, i_abdomen
+non-transformed: 6 predictors - abdomen + (weight) + wrist + (forearm) + bicep + neck
+
+Based on Stepwise: 8 predictors - age, (height), wrist, i_neck, i_abdomen, i_chest, i_weight, i_bicep
+non-transformed: 9 predictors - age + weight + neck + abdomen + (hip) + thigh + bicep + forearm + wrist
 
 ```{r fitting models stepwise}
-six_pred = lm(body_density ~ age + height + i_bicep + wrist + i_neck + i_abdomen, data = bodyfat_df)
+nine_pred = lm(body_density ~ age + weight + neck + abdomen + hip + thigh + bicep + forearm, data = bodyfat_df)
+summary(nine_pred)
+
+six_pred = lm(body_density ~ abdomen + weight + wrist + forearm + bicep + neck, data = bodyfat_df)
 summary(six_pred)
-
-eight_pred = lm(body_density ~ age + height + wrist + i_neck + i_abdomen + i_chest + i_weight + i_bicep, 
-                data = bodyfat_df)
-summary(eight_pred)
-
-anova(six_pred, eight_pred)
-```
-
-```{r tables format check}
-tbl_regression(six_pred, intercept = TRUE, estimate_fun = ~style_sigfig(., digits = 5)) %>% 
-  bold_labels()
 ```
 
 
@@ -176,18 +90,16 @@ plot(1:8, rs$adjr2, xlab = "No of predictors", ylab = "Adj R2")
 rs
 ```
 
-Based on Cp: 8 predictors (age height forearm wrist i_weight i_neck i_chest i_abdomen)
-
-Based on Adj R^2: 8 predictors (age height forearm wrist i_weight i_neck i_chest i_abdomen)
+Based on Cp and Adj R^2: 8 predictors (age weight forearm wrist neck abdomen hip thigh)
 
 NOTE: Some of these are highly correlated (DISCUSSION POINT!). Would use shrinkage method (LASSO) which would factor the matter of collinearity into the process). If we were to just abide by this though, we would have to use Vif values etc and drop the super highly correlated covariates. (Must ensure that the predictive ability is retained though by actually fitting the model and keeping track of the adj. r^2 or whatever parameter.)
 
 ```{r suggested models}
-eight_pred_auto = lm(body_density ~ age + height + wrist + i_neck + i_abdomen + i_chest + i_weight + forearm, 
+eight_pred_auto = lm(body_density ~ age + weight + forearm + wrist + neck + abdomen + hip + thigh, 
                 data = bodyfat_df)
 summary(eight_pred_auto)
 
-seven_pred_sig = lm(body_density ~ age + height + wrist + i_neck + i_abdomen + i_chest + i_weight,
+seven_pred_sig = lm(body_density ~ age + weight + forearm + wrist + neck + abdomen + thigh,
                     data = bodyfat_df)
 summary(seven_pred_sig)
 ```
@@ -201,8 +113,8 @@ set.seed(2022)
 # save matrix of predictors to pass to the lasso function
 predictors_dat.state =
   bodyfat_df %>% 
-  select(age, height, forearm, wrist, i_weight, i_neck, 
-         i_chest, i_abdomen, i_hip, i_thigh, i_knee, i_ankle, i_bicep) %>% 
+  select(age, height, forearm, wrist, weight, neck, 
+         chest, abdomen, hip, thigh, knee, ankle, bicep) %>% 
     as.matrix()
 
 response_dat.state =
@@ -226,10 +138,10 @@ lasso_fit = glmnet::glmnet(x = predictors_dat.state,
 coef(lasso_fit)
 ```
 
-Based on LASSO: 4 predictors (different though) - age, height, wrist, i_abdomen.
+Based on LASSO: 4 predictors (different though) - age, height, wrist, abdomen.
 
 ```{r fitting new model}
-four_pred_lasso = lm(body_density ~ age + height + wrist + i_abdomen, 
+four_pred_lasso = lm(body_density ~ age + height + wrist + abdomen, 
                       data = bodyfat_df)
 summary(four_pred_lasso)
 ```
@@ -265,7 +177,7 @@ set.seed(2022)
 train = trainControl(method = "cv", number = 10)
 
 # fit the 6-variables model that we selected as our final model
-model_caret = train(body_density ~ age + height + wrist + i_abdomen,
+model_caret = train(body_density ~ age + height + wrist + abdomen,
                     data = bodyfat_df,
                     trControl = train,
                     method = 'lm',
