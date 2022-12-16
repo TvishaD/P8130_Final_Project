@@ -310,6 +310,7 @@ tbl_regression(six_pred, intercept = TRUE, estimate_fun = ~style_sigfig(., digit
   modify_column_unhide(column = std.error) %>%
   add_glance_table(include = c("r.squared", "adj.r.squared", "AIC")) %>% 
   add_significance_stars() %>% 
+  add_vif() %>% 
   bold_labels()
 
 # Eight Pred
@@ -318,6 +319,7 @@ tbl_regression(eight_pred, intercept = TRUE, estimate_fun = ~style_sigfig(., dig
   modify_column_unhide(column = std.error) %>%
   add_glance_table(include = c("r.squared", "adj.r.squared", "AIC")) %>% 
   add_significance_stars() %>% 
+  add_vif() %>% 
   bold_labels()
 
 ```
@@ -366,6 +368,7 @@ tbl_regression(eight_pred_auto, intercept = TRUE, estimate_fun = ~style_sigfig(.
   modify_column_unhide(column = std.error) %>%
   add_glance_table(include = c("r.squared", "adj.r.squared", "AIC")) %>% 
   add_significance_stars() %>% 
+  add_vif() %>% 
   bold_labels()
 
 ```
@@ -410,12 +413,13 @@ summary(four_pred_lasso)
 ```
 
 ```{r lasso regression table}
-# Eight Pred Auto
+# Four Pred Lasso
 d = 
 tbl_regression(four_pred_lasso, intercept = TRUE, estimate_fun = ~style_sigfig(., digits = 5)) %>% 
   modify_column_unhide(column = std.error) %>%
   add_glance_table(include = c("r.squared", "adj.r.squared", "AIC")) %>% 
   add_significance_stars() %>% 
+  add_vif() %>% 
   bold_labels()
 
 ```
@@ -435,24 +439,28 @@ tbl_merge(tbls = list(a, b, c, d),
 tbl_regression(six_pred, intercept = TRUE, estimate_fun = ~style_sigfig(., digits = 5)) %>% 
   modify_column_unhide(column = std.error) %>%
   add_glance_table(include = c("r.squared", "adj.r.squared", "AIC")) %>%
+  add_vif() %>% 
   bold_labels()
 
 # Eight Pred
 tbl_regression(eight_pred, intercept = TRUE, estimate_fun = ~style_sigfig(., digits = 5)) %>% 
   modify_column_unhide(column = std.error) %>%
   add_glance_table(include = c("r.squared", "adj.r.squared", "AIC")) %>%
+  add_vif() %>% 
   bold_labels()
 
 # Eight Pred Auto
 tbl_regression(eight_pred_auto, intercept = TRUE, estimate_fun = ~style_sigfig(., digits = 5)) %>% 
   modify_column_unhide(column = std.error) %>%
   add_glance_table(include = c("r.squared", "adj.r.squared", "AIC")) %>%
+  add_vif() %>% 
   bold_labels()
 
 # Four Pred Lasso
 tbl_regression(four_pred_lasso, intercept = TRUE, estimate_fun = ~style_sigfig(., digits = 5)) %>% 
   modify_column_unhide(column = std.error) %>%
   add_glance_table(include = c("r.squared", "adj.r.squared", "AIC")) %>%
+  add_vif() %>% 
   bold_labels()
 ```
 
