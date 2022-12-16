@@ -267,6 +267,8 @@ bodyfat_df =
 
 # Model Selection
 
+## Stepwise
+
 ```{r stepwise}
 mult.fit = lm(body_density ~ ., data = bodyfat_df)
 
@@ -312,11 +314,9 @@ tbl_regression(eight_pred, intercept = TRUE, estimate_fun = ~style_sigfig(., dig
   add_significance_stars() %>% 
   bold_labels()
 
-tbl_merge(tbls = list(a, b),
-          tab_spanner = c("**Six Pred**", "**Eight Pred**")) %>%
-  modify_table_body(~.x %>% arrange(row_type == "glance_statistic"))
-
 ```
+
+## Automatic
 
 ```{r automatic criterion cp}
 bodyfat_df =
@@ -345,19 +345,107 @@ plot(1:8, rs$adjr2, xlab = "No. of predictors", ylab = "Adj R2")
 rs
 ```
 
-Based on Cp: 8 predictors (age height forearm wrist i_weight i_neck i_chest i_abdomen)
-
-Based on Adj R^2: 8 predictors (age height forearm wrist i_weight i_neck i_chest i_abdomen)
+Based on Cp and Adj R^2: Same 8 predictors (age height forearm wrist i_weight i_neck i_chest i_abdomen)
 
 ```{r fitting suggested auto models}
 eight_pred_auto = lm(body_density ~ age + height + wrist + i_neck + i_abdomen + i_chest + i_weight + forearm, 
                 data = bodyfat_df)
 summary(eight_pred_auto)
-
-seven_pred_sig = lm(body_density ~ age + height + wrist + i_neck + i_abdomen + i_chest + i_weight,
-                    data = bodyfat_df)
-summary(seven_pred_sig)
 ```
 
+```{r automatic regression table}
+# Eight Pred Auto
+c = 
+tbl_regression(eight_pred_auto, intercept = TRUE, estimate_fun = ~style_sigfig(., digits = 5)) %>% 
+  modify_column_unhide(column = std.error) %>%
+  add_glance_table(include = c("r.squared", "adj.r.squared", "AIC")) %>% 
+  add_significance_stars() %>% 
+  bold_labels()
 
+```
 
+## Lasso
+
+```{r lasso}
+# supply sequence of lambda values for the lasso cross validation for lambda
+lambda_seq <- 10^seq(-3, 0, by = .1)
+set.seed(2022)
+
+# save matrix of predictors to pass to the lasso function
+predictors_dat.state =
+  bodyfat_df %>% 
+  select(age, height, forearm, wrist, i_weight, i_neck, 
+         i_chest, i_abdomen, i_hip, i_thigh, i_knee, i_ankle, i_bicep) %>% 
+    as.matrix()
+
+response_dat.state =
+  bodyfat_df %>% 
+  select(body_density) %>% 
+  as.matrix()
+
+cv_lasso_fit <- glmnet::cv.glmnet(x = predictors_dat.state,
+                                    y = response_dat.state,
+                                    lambda = lambda_seq,
+                                    nfolds = 10)
+cv_lasso_fit
+```
+
+```{r lasso regression}
+lasso_fit = glmnet::glmnet(x = predictors_dat.state,
+                           y = response_dat.state,
+                           lambda = cv_lasso_fit$lambda.min)
+coef(lasso_fit)
+```
+
+```{r fitting lasso model}
+four_pred_lasso = lm(body_density ~ age + height + wrist + i_abdomen, 
+                      data = bodyfat_df)
+summary(four_pred_lasso)
+```
+
+```{r lasso regression table}
+# Eight Pred Auto
+d = 
+tbl_regression(four_pred_lasso, intercept = TRUE, estimate_fun = ~style_sigfig(., digits = 5)) %>% 
+  modify_column_unhide(column = std.error) %>%
+  add_glance_table(include = c("r.squared", "adj.r.squared", "AIC")) %>% 
+  add_significance_stars() %>% 
+  bold_labels()
+
+```
+
+# Regression Tables
+
+```{r JOINT REGRESSION TABLE}
+tbl_merge(tbls = list(a, b, c, d),
+          tab_spanner = c("**Forward**", "**Backward & Stepwise**", 
+                          "**Cp and Adj R^2**", "**Lasso**")) %>%
+  modify_table_body(~.x %>% arrange(row_type == "glance_statistic"))
+```
+
+```{r INDIVIDUAL MODELS for APPENDIX}
+
+# Six Pred
+tbl_regression(six_pred, intercept = TRUE, estimate_fun = ~style_sigfig(., digits = 5)) %>% 
+  modify_column_unhide(column = std.error) %>%
+  add_glance_table(include = c("r.squared", "adj.r.squared", "AIC")) %>%
+  bold_labels()
+
+# Eight Pred
+tbl_regression(eight_pred, intercept = TRUE, estimate_fun = ~style_sigfig(., digits = 5)) %>% 
+  modify_column_unhide(column = std.error) %>%
+  add_glance_table(include = c("r.squared", "adj.r.squared", "AIC")) %>%
+  bold_labels()
+
+# Eight Pred Auto
+tbl_regression(eight_pred_auto, intercept = TRUE, estimate_fun = ~style_sigfig(., digits = 5)) %>% 
+  modify_column_unhide(column = std.error) %>%
+  add_glance_table(include = c("r.squared", "adj.r.squared", "AIC")) %>%
+  bold_labels()
+
+# Four Pred Lasso
+tbl_regression(four_pred_lasso, intercept = TRUE, estimate_fun = ~style_sigfig(., digits = 5)) %>% 
+  modify_column_unhide(column = std.error) %>%
+  add_glance_table(include = c("r.squared", "adj.r.squared", "AIC")) %>%
+  bold_labels()
+```
