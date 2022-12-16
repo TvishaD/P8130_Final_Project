@@ -1,0 +1,241 @@
+---
+title: "code_plots_tables"
+author: "Tvisha R. Devavarapu"
+date: "2022-12-16"
+output: github_document
+---
+
+```{r libraries set up, message = FALSE}
+library(tidyverse)
+library(ggplot2)
+library(patchwork)
+library(GGally)
+library(gtsummary)
+```
+
+```{r dataset set up}
+bodyfat_df = 
+  readxl::read_excel("body_density_data.xlsx") %>%
+  janitor::clean_names() 
+
+head(bodyfat_df)
+```
+
+```{r descriptive stats of variables}
+bodyfat_df %>% 
+  select(-id, -bodyfat_siri, -bodyfat_brozek) %>% 
+  gtsummary::tbl_summary() %>% 
+  gtsummary::bold_labels() 
+```
+
+```{r Y Distribution (Body Density)}
+bodyfat_df %>%
+  ggplot(aes(x = body_density)) +
+  geom_histogram() +
+  labs(x = "Body Density Measurement (in gm/cm^3)",
+       y = "Counts") +
+  theme(axis.title = element_text(face = "bold"),
+        axis.text.x = element_text(angle = 70, hjust = 1))
+```
+
+```{r normality, y-x rels, collinearity in covariates (xs)}
+bodyfat_df %>% 
+  select(-bodyfat_siri, -bodyfat_brozek, -id) %>% 
+  relocate("body_density") %>% 
+  ggpairs(., axisLabels = "none")
+```
+
+```{r inv_transformation for weight}
+before = 
+bodyfat_df %>%
+  ggplot(aes(x = weight)) +
+  geom_histogram() +
+  labs(x = "Weight (in lbs)",
+       y = "Counts") +
+  theme(axis.title = element_text(face = "bold"),
+        axis.text.x = element_text(angle = 70, hjust = 1))
+
+after = 
+bodyfat_df %>% 
+  mutate(inv_weight = 1/(weight)) %>% 
+  ggplot(aes(x = inv_weight)) +
+  geom_histogram() +
+  labs(x = "Inverse Weight (1/Weight)",
+       y = "Counts") +
+  theme(axis.title = element_text(face = "bold"),
+        axis.text.x = element_text(angle = 70, hjust = 1))
+
+before + after
+```
+
+```{r inv_transformation for all other transformed variables}
+before2 = 
+bodyfat_df %>%
+  ggplot(aes(x = neck)) +
+  geom_histogram() +
+  labs(x = "Neck Circumference (in cm)",
+       y = "Counts") +
+  theme(axis.title = element_text(face = "bold"),
+        axis.text.x = element_text(angle = 70, hjust = 1))
+
+after2 = 
+bodyfat_df %>% 
+  mutate(inv_neck = 1/(neck)) %>% 
+  ggplot(aes(x = inv_neck)) +
+  geom_histogram() +
+  labs(x = "Inverse Neck (1/Neck)",
+       y = "Counts") +
+  theme(axis.title = element_text(face = "bold"),
+        axis.text.x = element_text(angle = 70, hjust = 1))
+
+neck = before2 + after2
+
+before3 = 
+bodyfat_df %>%
+  ggplot(aes(x = chest)) +
+  geom_histogram() +
+  labs(x = "Chest Circumference (in cm)",
+       y = "Counts") +
+  theme(axis.title = element_text(face = "bold"),
+        axis.text.x = element_text(angle = 70, hjust = 1))
+
+after3 = 
+bodyfat_df %>% 
+  mutate(inv_chest = 1/(chest)) %>% 
+  ggplot(aes(x = inv_chest)) +
+  geom_histogram() +
+  labs(x = "Inverse Chest (1/Chest)",
+       y = "Counts") +
+  theme(axis.title = element_text(face = "bold"),
+        axis.text.x = element_text(angle = 70, hjust = 1))
+
+chest = before3 + after3
+
+before4 = 
+bodyfat_df %>%
+  ggplot(aes(x = abdomen)) +
+  geom_histogram() +
+  labs(x = "Abdomen Circumference (in cm)",
+       y = "Counts") +
+  theme(axis.title = element_text(face = "bold"),
+        axis.text.x = element_text(angle = 70, hjust = 1))
+
+after4 = 
+bodyfat_df %>% 
+  mutate(inv_abdomen = 1/(abdomen)) %>% 
+  ggplot(aes(x = inv_abdomen)) +
+  geom_histogram() +
+  labs(x = "Inverse Abdomen (1/Abdomen)",
+       y = "Counts") +
+  theme(axis.title = element_text(face = "bold"),
+        axis.text.x = element_text(angle = 70, hjust = 1))
+
+abdomen = before4 + after4
+
+before5 = 
+bodyfat_df %>%
+  ggplot(aes(x = hip)) +
+  geom_histogram() +
+  labs(x = "Hip Circumference (in cm)",
+       y = "Counts") +
+  theme(axis.title = element_text(face = "bold"),
+        axis.text.x = element_text(angle = 70, hjust = 1))
+
+after5 = 
+bodyfat_df %>% 
+  mutate(inv_hip = 1/(hip)) %>% 
+  ggplot(aes(x = inv_hip)) +
+  geom_histogram() +
+  labs(x = "Inverse Hip (1/Hip)",
+       y = "Counts") +
+  theme(axis.title = element_text(face = "bold"),
+        axis.text.x = element_text(angle = 70, hjust = 1))
+
+hip = before5 + after5
+
+before6 = 
+bodyfat_df %>%
+  ggplot(aes(x = thigh)) +
+  geom_histogram() +
+  labs(x = "Thigh Circumference (in cm)",
+       y = "Counts") +
+  theme(axis.title = element_text(face = "bold"),
+        axis.text.x = element_text(angle = 70, hjust = 1))
+
+after6 = 
+bodyfat_df %>% 
+  mutate(inv_thigh = 1/(thigh)) %>% 
+  ggplot(aes(x = inv_thigh)) +
+  geom_histogram() +
+  labs(x = "Inverse Thigh (1/Chest)",
+       y = "Counts") +
+  theme(axis.title = element_text(face = "bold"),
+        axis.text.x = element_text(angle = 70, hjust = 1))
+
+thigh = before6 + after6
+
+before7 = 
+bodyfat_df %>%
+  ggplot(aes(x = knee)) +
+  geom_histogram() +
+  labs(x = "Knee Circumference (in cm)",
+       y = "Counts") +
+  theme(axis.title = element_text(face = "bold"),
+        axis.text.x = element_text(angle = 70, hjust = 1))
+
+after7 = 
+bodyfat_df %>% 
+  mutate(inv_knee = 1/(knee)) %>% 
+  ggplot(aes(x = inv_knee)) +
+  geom_histogram() +
+  labs(x = "Inverse Knee (1/Knee)",
+       y = "Counts") +
+  theme(axis.title = element_text(face = "bold"),
+        axis.text.x = element_text(angle = 70, hjust = 1))
+
+knee = before7 + after7
+
+before8 = 
+bodyfat_df %>%
+  ggplot(aes(x = ankle)) +
+  geom_histogram() +
+  labs(x = "Ankle Circumference (in cm)",
+       y = "Counts") +
+  theme(axis.title = element_text(face = "bold"),
+        axis.text.x = element_text(angle = 70, hjust = 1))
+
+after8 = 
+bodyfat_df %>% 
+  mutate(inv_ankle = 1/(ankle)) %>% 
+  ggplot(aes(x = inv_ankle)) +
+  geom_histogram() +
+  labs(x = "Inverse Ankle (1/Ankle)",
+       y = "Counts") +
+  theme(axis.title = element_text(face = "bold"),
+        axis.text.x = element_text(angle = 70, hjust = 1))
+
+ankle = before8 + after8
+
+before9 = 
+bodyfat_df %>%
+  ggplot(aes(x = bicep)) +
+  geom_histogram() +
+  labs(x = "Bicep Circumference (in cm)",
+       y = "Counts") +
+  theme(axis.title = element_text(face = "bold"),
+        axis.text.x = element_text(angle = 70, hjust = 1))
+
+after9 = 
+bodyfat_df %>% 
+  mutate(inv_bicep = 1/(bicep)) %>% 
+  ggplot(aes(x = inv_bicep)) +
+  geom_histogram() +
+  labs(x = "Inverse Bicep (1/Chest)",
+       y = "Counts") +
+  theme(axis.title = element_text(face = "bold"),
+        axis.text.x = element_text(angle = 70, hjust = 1))
+
+bicep = before9 + after9
+```
+
+

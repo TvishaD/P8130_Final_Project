@@ -1,6 +1,5 @@
 ---
 title: "Code_Analysis_Density"
-author: "Tvisha R. Devavarapu"
 date: "2022-12-12"
 output: github_document
 ---
@@ -13,7 +12,6 @@ library(GGally)
 library(leaps)
 library(caret)
 library(modelr)
-library(gtsummary)
 ```
 
 ```{r dataset set up}
@@ -23,27 +21,6 @@ bodyfat_df =
 
 head(bodyfat_df)
 ```
-
-```{r table for variable description in appendix}
-#BEST WAY MIGHT BE JUST TO MAKE ONE IN MICROSOFT WORD MANUALLY AGH.
-
-Variable = c("id", "body_density", "age", "weight", "height", "neck", "chest", "abdomen",
-             "hip", "thigh", "knee", "ankle", "bicep", "forearm", "wrist")
-
-Description = c("Case number: 1-252", "Body density (gm/cm3)", "Age (in years)", "Weight (in lbs",
-                "Height (in inches)", "Circumference of Neck (in cm)", "Circumference of Chest (in cm)",
-                "Circumference of Abdomen (in cm) - measured “at the umbilicus and level with the iliac crest”",
-                "Circumference of Hip (in cm)", "Circumference of Thigh (in cm)", "Circumference of Knee (in cm)",
-                "Circumference of Ankle (in cm)", "Extended bicep circumference (in cm)", 
-                "Circumference of forearm (in cm)", 
-                "Circumference of Wrist (in cm) - – measured “distal to the styloid processes”")
-
-
-df = data.frame(Variable, Description)
-
-df
-```
-
 
 ## Exploratory Analysis and Transformations
 
@@ -125,6 +102,8 @@ before + after
 NOTE: For the almost normal but right skewed distributions, inverse transformation is making a considerable difference. From this point, inversely transforming (weight and neck --- bicep). 
 
 ```{r inverse transforms}
+
+#MAKE INVERSE BEFORE AFTER FOR ALL OTHER VARIABLES TO PUT IN APPENDIX. 
 bodyfat_df = 
   bodyfat_df %>%
   mutate(i_weight = 1/weight,
@@ -176,8 +155,19 @@ anova(six_pred, eight_pred)
 ```
 
 ```{r tables format check}
-tbl_regression(six_pred, intercept = TRUE, estimate_fun = ~style_sigfig(., digits = 5)) %>% 
+sp = 
+  tbl_regression(six_pred, intercept = TRUE, estimate_fun = ~style_sigfig(., digits = 5)) %>% 
+  modify_column_unhide(column = std.error) %>%
+  add_glance_table(include = everything()) %>% 
   bold_labels()
+
+ep = 
+  tbl_regression(eight_pred, intercept = TRUE, estimate_fun = ~style_sigfig(., digits = 5)) %>% 
+  modify_column_unhide(column = std.error) %>%
+  add_glance_table(include = everything()) %>% 
+  bold_labels()
+
+tbl_merge(list(sp, ep))
 ```
 
 
