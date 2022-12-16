@@ -102,8 +102,6 @@ before + after
 NOTE: For the almost normal but right skewed distributions, inverse transformation is making a considerable difference. From this point, inversely transforming (weight and neck --- bicep). 
 
 ```{r inverse transforms}
-
-#MAKE INVERSE BEFORE AFTER FOR ALL OTHER VARIABLES TO PUT IN APPENDIX. 
 bodyfat_df = 
   bodyfat_df %>%
   mutate(i_weight = 1/weight,
@@ -154,23 +152,6 @@ summary(eight_pred)
 anova(six_pred, eight_pred)
 ```
 
-```{r tables format check}
-sp = 
-  tbl_regression(six_pred, intercept = TRUE, estimate_fun = ~style_sigfig(., digits = 5)) %>% 
-  modify_column_unhide(column = std.error) %>%
-  add_glance_table(include = everything()) %>% 
-  bold_labels()
-
-ep = 
-  tbl_regression(eight_pred, intercept = TRUE, estimate_fun = ~style_sigfig(., digits = 5)) %>% 
-  modify_column_unhide(column = std.error) %>%
-  add_glance_table(include = everything()) %>% 
-  bold_labels()
-
-tbl_merge(list(sp, ep))
-```
-
-
 ```{r automatic criterion cp}
 bodyfat_df =
   bodyfat_df %>%
@@ -191,9 +172,9 @@ b = regsubsets(body_density ~ ., data = bodyfat_df)
 rs = summary(b)
 
 par(mfrow = c(1,2))
-plot(1:8, rs$cp, xlab = "No of predictors", ylab = "Cp Statistic")
+plot(1:8, rs$cp, xlab = "No. of predictors", ylab = "Cp Statistic")
 abline(0,1)
-plot(1:8, rs$adjr2, xlab = "No of predictors", ylab = "Adj R2")
+plot(1:8, rs$adjr2, xlab = "No. of predictors", ylab = "Adj R2")
 
 rs
 ```

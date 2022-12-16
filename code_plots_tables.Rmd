@@ -5,12 +5,18 @@ date: "2022-12-16"
 output: github_document
 ---
 
+# Set Up
+
 ```{r libraries set up, message = FALSE}
 library(tidyverse)
 library(ggplot2)
 library(patchwork)
 library(GGally)
 library(gtsummary)
+
+# https://cran.r-project.org/web/packages/gtsummary/vignettes/tbl_regression.html
+# https://education.rstudio.com/blog/2020/07/gtsummary/ 
+# https://www.danieldsjoberg.com/gtsummary/reference/add_glance.html 
 ```
 
 ```{r dataset set up}
@@ -20,6 +26,8 @@ bodyfat_df =
 
 head(bodyfat_df)
 ```
+
+# Descriptive Stats + Y and X Distributions + Correlations
 
 ```{r descriptive stats of variables}
 bodyfat_df %>% 
@@ -44,6 +52,8 @@ bodyfat_df %>%
   relocate("body_density") %>% 
   ggpairs(., axisLabels = "none")
 ```
+
+# Transformations
 
 ```{r inv_transformation for weight}
 before = 
@@ -237,5 +247,117 @@ bodyfat_df %>%
 
 bicep = before9 + after9
 ```
+
+```{r inverse transforms}
+bodyfat_df = 
+  bodyfat_df %>%
+  mutate(i_weight = 1/weight,
+         i_neck = 1/neck,
+         i_chest = 1/chest,
+         i_abdomen = 1/abdomen,
+         i_hip = 1/hip,
+         i_thigh = 1/thigh,
+         i_knee = 1/knee,
+         i_ankle = 1/ankle,
+         i_bicep = 1/bicep) %>% 
+  select(-id, -bodyfat_siri, -bodyfat_brozek, -weight, -neck, -chest, -abdomen,
+         -hip, -thigh, -knee, -ankle, -bicep)
+
+```
+
+# Model Selection
+
+```{r stepwise}
+mult.fit = lm(body_density ~ ., data = bodyfat_df)
+
+#Backward
+step(mult.fit, direction = 'backward')
+
+#Forward
+intercept_only = lm(body_density ~ 1, data = bodyfat_df)
+step(intercept_only, direction = "forward", scope = formula(mult.fit))
+
+#Stepwise
+step(mult.fit, direction = 'both')
+```
+
+Based on Backward: 8 predictors - age, height, wrist, i_neck, i_abdomen, i_chest, i_weight, i_bicep 
+Based on Forward: 6 predictors - age, height, i_bicep, wrist, i_neck, i_abdomen
+Based on Stepwise: 8 predictors - age, height, wrist, i_neck, i_abdomen, i_chest, i_weight, i_bicep
+
+```{r fitting models stepwise}
+six_pred = lm(body_density ~ age + height + i_bicep + wrist + i_neck + i_abdomen, data = bodyfat_df)
+summary(six_pred)
+
+eight_pred = lm(body_density ~ age + height + wrist + i_neck + i_abdomen + i_chest + i_weight + i_bicep, 
+                data = bodyfat_df)
+summary(eight_pred)
+
+```
+
+```{r stepwise regression tables}
+# Six Pred
+a = 
+tbl_regression(six_pred, intercept = TRUE, estimate_fun = ~style_sigfig(., digits = 5)) %>% 
+  modify_column_unhide(column = std.error) %>%
+  add_glance_table(include = c("r.squared", "adj.r.squared", "AIC")) %>% 
+  add_significance_stars() %>% 
+  bold_labels()
+
+# Eight Pred
+b = 
+tbl_regression(eight_pred, intercept = TRUE, estimate_fun = ~style_sigfig(., digits = 5)) %>% 
+  modify_column_unhide(column = std.error) %>%
+  add_glance_table(include = c("r.squared", "adj.r.squared", "AIC")) %>% 
+  add_significance_stars() %>% 
+  bold_labels()
+
+tbl_merge(tbls = list(a, b),
+          tab_spanner = c("**Six Pred**", "**Eight Pred**")) %>%
+  modify_table_body(~.x %>% arrange(row_type == "glance_statistic"))
+
+```
+
+```{r automatic criterion cp}
+bodyfat_df =
+  bodyfat_df %>%
+  select(body_density, everything())
+
+mat = as.matrix(bodyfat_df)
+# Printing the 2 best models of each size, using the Cp criterion:
+leaps(x = mat[,2:14], y = mat[,1], nbest = 2, method = "Cp")
+```
+
+```{r automatic criterion adj r^2}
+# Printing the 2 best models of each size, using the adjusted Rˆ2 criterion:
+leaps(x = mat[,2:14], y = mat[,1], nbest = 2, method = "adjr2")
+```
+
+```{r automatic criterion output}
+b = regsubsets(body_density ~ ., data = bodyfat_df)
+rs = summary(b)
+
+par(mfrow = c(1,2))
+plot(1:8, rs$cp, xlab = "No. of predictors", ylab = "Cp Statistic")
+abline(0,1)
+plot(1:8, rs$adjr2, xlab = "No. of predictors", ylab = "Adj R2")
+
+rs
+```
+
+Based on Cp: 8 predictors (age height forearm wrist i_weight i_neck i_chest i_abdomen)
+
+Based on Adj R^2: 8 predictors (age height forearm wrist i_weight i_neck i_chest i_abdomen)
+
+```{r fitting suggested auto models}
+eight_pred_auto = lm(body_density ~ age + height + wrist + i_neck + i_abdomen + i_chest + i_weight + forearm, 
+                data = bodyfat_df)
+summary(eight_pred_auto)
+
+seven_pred_sig = lm(body_density ~ age + height + wrist + i_neck + i_abdomen + i_chest + i_weight,
+                    data = bodyfat_df)
+summary(seven_pred_sig)
+```
+
 
 
