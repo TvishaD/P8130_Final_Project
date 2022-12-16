@@ -449,3 +449,20 @@ tbl_regression(four_pred_lasso, intercept = TRUE, estimate_fun = ~style_sigfig(.
   add_glance_table(include = c("r.squared", "adj.r.squared", "AIC")) %>%
   bold_labels()
 ```
+
+# Diagnostic Plots
+
+```{r}
+par(mfrow = c(2,2))
+plot(six_pred)
+
+par(mfrow = c(2,2))
+plot(eight_pred)
+
+par(mfrow = c(2,2))
+plot(eight_pred_auto)
+
+par(mfrow = c(2,2))
+plot(four_pred_lasso)
+```
+
